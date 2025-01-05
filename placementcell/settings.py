@@ -78,6 +78,7 @@ WSGI_APPLICATION = 'placementcell.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+#databse configuration for postgres
 DATABASES = {
     "default": {
         "ENGINE": os.getenv("DATABASE_ENGINE"),
