@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import User
-
-class CustomUserAdmin(UserAdmin):
+from unfold.admin import ModelAdmin
+class CustomUserAdmin(UserAdmin,ModelAdmin):
     list_display = ('email', 'user_type', 'name', 'is_staff', 'is_active')
     list_filter = ('user_type', 'is_staff', 'is_active')
     fieldsets = (

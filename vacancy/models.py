@@ -36,7 +36,7 @@ class Application(models.Model):
     job_vacancy = models.ForeignKey(JobVacancy, on_delete=models.CASCADE, related_name='applications')
     applied_on = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='PENDING')
-    cover_letter = CKEditor5Field('Cover Letter', config_name='default', blank=True, null=True)  # Use CKEditor5Field
+    cover_letter = models.TextField(blank=True, null=True)
     resume = models.FileField(upload_to='resumes/', blank=True, null=True)
 
     class Meta:

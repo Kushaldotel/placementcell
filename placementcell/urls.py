@@ -19,6 +19,11 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 
+# change the title from django administration to corp gems
+admin.site.site_header = "Placement Administration"
+# also change the login administration to login into corpgems admin
+admin.site.site_title = "Placement Admin"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("ckeditor5/", include('django_ckeditor_5.urls')),
