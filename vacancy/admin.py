@@ -37,23 +37,49 @@ class JobVacancyAdmin(ModelAdmin):
         #     return True  # Allow organizations to access the JobVacancy module
         # return super().has_module_permission(request)
 
-    def has_view_permission(self, request, obj=None):
-        try:
-            if request.user.user_type == 'ORGANIZATION':
-                return True  # Allow organizations to view JobVacancy objects
-            return super().has_view_permission(request, obj)
-
-        except:
-            return False
-        # if request.user.user_type == 'ORGANIZATION':
-        #     return True  # Allow organizations to view JobVacancy objects
-        # return super().has_view_permission(request, obj)
-
     # Restrict organizations from editing the 'posted_by' field
     def get_readonly_fields(self, request, obj=None):
         if request.user.user_type == 'ORGANIZATION':
             return ('posted_by',)
         return super().get_readonly_fields(request, obj)
+
+    # Organizations also must be able to post vacancy
+
+    def has_add_permission(self, request):
+        try:
+            if request.user.user_type == 'ORGANIZATION':
+                return True  # Allow organizations to add JobVacancy objects
+            return super().has_add_permission(request)
+        except:
+            return False
+        # if request.user.user_type == 'ORGANIZATION':
+        #     return True  # Allow organizations to add JobVacancy objects
+        # return super().has_add_permission(request)
+
+    # view and edit permissions too:
+
+    def has_change_permission(self, request, obj=None):
+        try:
+            if request.user.user_type == 'ORGANIZATION':
+                return True  # Allow organizations to change JobVacancy objects
+            return super().has_change_permission(request, obj)
+        except:
+            return False
+        # if request.user.user_type == 'ORGANIZATION':
+        #     return True  # Allow organizations to change JobVacancy objects
+        # return super().has_change_permission(request, obj)
+
+    # view to delete
+
+    # def has_delete_permission(self, request, obj=None):
+
+    #     try:
+    #         if request.user.user_type == 'ORGANIZATION':
+    #             return True  # Allow organizations to delete JobVacancy objects
+    #         return super().has_delete_permission(request, obj)
+    #     except:
+    #         return False
+
 
     # Automatically set the 'posted_by' field to the logged-in organization
     def save_model(self, request, obj, form, change):
@@ -65,7 +91,7 @@ class JobVacancyAdmin(ModelAdmin):
 # Custom Admin for Application
 @admin.register(Application)
 class ApplicationAdmin(ModelAdmin):
-    list_display = ('student', 'job_vacancy', 'status', 'applied_on')
+    list_display = ('student', 'student_name', 'job_vacancy', 'status', 'applied_on')
     list_filter = ('status', 'job_vacancy', 'student')
     search_fields = ('student__name', 'job_vacancy__title', 'cover_letter')
     date_hierarchy = 'applied_on'
@@ -75,6 +101,9 @@ class ApplicationAdmin(ModelAdmin):
     # formfield_overrides = {
     #     models.TextField: {'widget': CKEditor5Widget(config_name='default')},
     # }
+
+    # def get_student_name(self, obj):
+    #     return obj.student.name
 
     # For ApplicationAdmin
 

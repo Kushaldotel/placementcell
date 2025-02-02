@@ -44,3 +44,8 @@ class Application(models.Model):
 
     def __str__(self):
         return f"{self.student.name} - {self.job_vacancy.title} ({self.status})"
+
+    #Property decorator so that i can access the student name and use in admin
+    @property
+    def student_name(self):
+        return self.student.name
