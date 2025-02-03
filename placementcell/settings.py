@@ -14,6 +14,7 @@ from json import load
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from datetime import timedelta
 
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -49,12 +50,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',
     'django_ckeditor_5',
 ]
 
 INSTALLED_APPS += [
     'authuser',
     'vacancy',
+    'utils',
 ]
 
 MIDDLEWARE = [
@@ -207,4 +210,21 @@ CKEDITOR_5_CONFIGS = {
             ]
         }
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'utils.renderer_utils.CustomRenderer',
+    ]
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # Access token valid for 1 hour
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),     # Refresh token valid for 1 day
+    'ROTATE_REFRESH_TOKENS': True,                   # Rotate refresh tokens on refresh
+    'BLACKLIST_AFTER_ROTATION': True,                # Blacklist old refresh tokens
+    'UPDATE_LAST_LOGIN': True,                       # Update last login time on token refresh
 }
