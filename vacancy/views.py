@@ -15,6 +15,6 @@ class JobVacancyListAPIView(ListAPIView):
     Only students can access this endpoint.
     """
     permission_classes = [IsAuthenticated, IsStudentUser]
-    queryset = JobVacancy.objects.filter(is_open=True)
+    queryset = JobVacancy.objects.filter(is_open=True).order_by('-posted_on')
     serializer_class = JobVacancySerializer
     pagination_class = JobVacancyPagination
