@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'django_ckeditor_5',
+    'corsheaders',
 ]
 
 INSTALLED_APPS += [
@@ -61,6 +62,7 @@ INSTALLED_APPS += [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -69,6 +71,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Allow all domains to access your API (for development purposes)
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'placementcell.urls'
 
@@ -230,3 +235,8 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,                # Blacklist old refresh tokens
     'UPDATE_LAST_LOGIN': True,                       # Update last login time on token refresh
 }
+
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
+# GOOGLE_REDIRECT_URI = "http://127.0.0.1:8000/admin"
+GOOGLE_REDIRECT_URI = "http://127.0.0.1:8000/api/auth/google/callback"

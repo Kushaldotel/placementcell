@@ -29,7 +29,7 @@ BASE_URL = 'api/v1/'
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('api/v1/auth/', include('authuser.urls')),
+    path('api/auth/', include('authuser.urls')),
     path('api/v1/vacancy/', include('vacancy.urls')),
 
     path("ckeditor5/", include('django_ckeditor_5.urls')),
