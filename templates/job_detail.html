@@ -1,0 +1,287 @@
+{% extends 'boiler_plate.html' %}
+{% load static %}
+
+{% block title %}{{ job.title }} - Placement Cell{% endblock %}
+
+{% block extra_css %}
+<style>
+    .job-detail-header {
+        background-color: #121026;
+        padding: 50px 0;
+        color: white;
+    }
+
+    .job-meta-item {
+        display: inline-flex;
+        align-items: center;
+        margin-right: 20px;
+        margin-bottom: 10px;
+        color: #666;
+    }
+
+    .job-meta-item i {
+        margin-right: 8px;
+        color: #007bff;
+    }
+
+    .job-description {
+        margin: 30px 0;
+    }
+
+    .job-description h3 {
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+
+    .job-sidebar {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 25px;
+    }
+
+    .apply-button {
+        width: 100%;
+        padding: 12px 0;
+        font-size: 16px;
+        margin-top: 20px;
+    }
+
+    .modal-body {
+        padding: 30px;
+    }
+
+    .already-applied {
+        background-color: #e9f7ef;
+        border-left: 4px solid #28a745;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .deadline-alert {
+        background-color: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="job-detail-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>{{ job.title }}</h1>
+                <div class="job-type-badge">
+                    <span class="badge bg-primary">{{ job.get_job_type_display }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="job-detail-content py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Job Meta Information -->
+                <div class="job-meta mb-4">
+                    {% if job.location %}
+                    <div class="job-meta-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>{{ job.location }}</span>
+                    </div>
+                    {% endif %}
+
+                    {% if job.salary %}
+                    <div class="job-meta-item">
+                        <i class="fa-solid fa-indian-rupee-sign"></i>
+                        <span>{{ job.salary }}</span>
+                    </div>
+                    {% endif %}
+
+                    <div class="job-meta-item">
+                        <i class="fa-solid fa-calendar"></i>
+                        <span>Posted: {{ job.posted_on|date:"M d, Y" }}</span>
+                    </div>
+
+                    <div class="job-meta-item">
+                        <i class="fa-solid fa-clock"></i>
+                        <span>Deadline: {{ job.application_deadline|date:"M d, Y" }}</span>
+                    </div>
+                </div>
+
+                <!-- Job Description -->
+                <div class="job-description">
+                    <h3>Job Description</h3>
+                    <div>
+                        {{ job.description|safe }}
+                    </div>
+                </div>
+
+                <!-- Skills Required -->
+                {% if job.skills_required %}
+                <div class="job-skills mb-4">
+                    <h3>Skills Required</h3>
+                    <div>
+                        {{ job.skills_required|safe|linebreaks }}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="col-lg-4">
+                <div class="job-sidebar">
+                    <h4>Application Information</h4>
+
+                    {% if user_has_applied %}
+                    <div class="already-applied">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <span>You have already applied for this position.</span>
+                    </div>
+                    {% endif %}
+
+                    {% if job.application_deadline|date:'Y-m-d' < now|date:'Y-m-d' %}
+                    <div class="deadline-alert">
+                        <i class="fa-solid fa-exclamation-circle"></i>
+                        <span>The application deadline has passed.</span>
+                    </div>
+                    {% else %}
+                    <p>This position is currently accepting applications. Apply before the deadline to be considered.</p>
+
+                    {% if user.is_authenticated %}
+                    <button type="button" class="btn btn-primary apply-button" data-bs-toggle="modal" data-bs-target="#applyModal" {% if user_has_applied %}disabled{% endif %}>
+                        {% if user_has_applied %}Already Applied{% else %}Apply Now{% endif %}
+                    </button>
+                    {% else %}
+                    <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-primary apply-button">Login to Apply</a>
+                    {% endif %}
+                    {% endif %}
+
+                    <div class="job-posted-by mt-4">
+                        <p><strong>Posted by:</strong> {{ job.posted_by.name }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Apply Modal -->
+<div class="modal fade" id="applyModal" tabindex="-1" aria-labelledby="applyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="applyModalLabel">Apply for {{ job.title }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="applicationForm" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="coverLetter" class="form-label">Cover Letter</label>
+                        <textarea class="form-control" id="coverLetter" name="cover_letter" rows="5" placeholder="Write a brief cover letter explaining why you're a good fit for this position"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="resume" class="form-label">Resume/CV (PDF or DOCX)</label>
+                        <input class="form-control" type="file" id="resume" name="resume" accept=".pdf,.docx">
+                        <div class="form-text">Upload your resume in PDF or DOCX format (max 5MB)</div>
+                    </div>
+                    <div class="alert alert-danger d-none" id="errorMessage"></div>
+                    <div class="alert alert-success d-none" id="successMessage"></div>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="submitApplication">Submit Application</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const applicationForm = document.getElementById('applicationForm');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+        const submitButton = document.getElementById('submitApplication');
+
+        applicationForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Reset messages
+            errorMessage.classList.add('d-none');
+            successMessage.classList.add('d-none');
+
+            // Disable submit button
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Submitting...';
+
+            // Create form data
+            const formData = new FormData(applicationForm);
+
+            // Send AJAX request
+            fetch('/api/v1/vacancy/jobs/{{ job.id }}/', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(data => {
+                        throw new Error(JSON.stringify(data));
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Show success message
+                successMessage.textContent = 'Your application has been submitted successfully!';
+                successMessage.classList.remove('d-none');
+
+                // Disable form fields
+                Array.from(applicationForm.elements).forEach(element => {
+                    element.disabled = true;
+                });
+
+                // Change button text
+                submitButton.innerHTML = 'Application Submitted';
+
+                // Reload page after 2 seconds
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            })
+            .catch(error => {
+                // Re-enable submit button
+                submitButton.disabled = false;
+                submitButton.innerHTML = 'Submit Application';
+
+                // Show error message
+                try {
+                    const errorData = JSON.parse(error.message);
+                    let errorText = 'There was an error submitting your application:';
+
+                    for (const key in errorData) {
+                        if (Array.isArray(errorData[key])) {
+                            errorText += `<br>- ${key}: ${errorData[key].join(', ')}`;
+                        } else {
+                            errorText += `<br>- ${key}: ${errorData[key]}`;
+                        }
+                    }
+
+                    errorMessage.innerHTML = errorText;
+                } catch (e) {
+                    errorMessage.textContent = 'There was an error submitting your application. Please try again.';
+                }
+
+                errorMessage.classList.remove('d-none');
+            });
+        });
+    });
+</script>
+{% endblock %}

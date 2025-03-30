@@ -1,0 +1,215 @@
+.style-two {
+    background: var(--style-two);
+}
+
+// sponsor
+
+.sponsor {
+    background: var(--style-three);
+    padding: 80px 0;
+
+    &__slider {
+        position: relative;
+        overflow: hidden;
+
+        .swiper-slide {
+            text-align: center;
+
+            img {
+                max-width: 100%;
+                height: 30px;
+                object-fit: cover;
+            }
+        }
+    }
+}
+
+// case study
+
+.style-two {
+    & .caseStudy {
+        &__info {
+            h3 {
+                font-size: 30px;
+                font-weight: 600;
+                color: #fff;
+                margin-bottom: 15px;
+                display: inline-block;
+            }
+            @include responsive($md){
+                margin-bottom: 50px;
+            }
+        }
+
+        &__single {
+            position: relative;
+            margin-bottom: 30px;
+            .image {
+                max-height: 330px;
+                width: 100%;
+                position: relative;
+                overflow: hidden;
+                border-radius: 10px;
+                min-height: 330px;
+
+                img {
+                    min-height: 330px;
+                    width: 100%;
+                    object-fit: cover;
+                }
+
+                &::before {
+                    position: absolute;
+                    height: 100%;
+                    width: 100%;
+                    left: -100%;
+                    transform: rotate(-360deg);
+                    top: 0;
+                    content: '';
+                    background: #2b83ff50;
+                    @include animation(transition, all .5s ease-in);
+                }
+
+                &:hover {
+                    &::before {
+                        left: 100%;
+                    }
+                }
+            }
+
+            .meta {
+                display: flex;
+                justify-content: space-between;
+                gap: 40px;
+                background: var(--body-bg);
+                padding: 20px;
+                width: max-content;
+                position: absolute;
+                bottom: 20px;
+                left: 20px;
+                border: 0;
+                border-radius: 10px;
+                @include responsive($xs){
+                    width: 90%;
+                }
+                .info {
+                    .cat {
+                        a {
+                            color: #fff;
+                            font-size: 15px;
+                            font-family: var(--inter);
+                            font-weight: 600;
+                            margin-bottom: 15px;
+                            display: inline-block;
+                        }
+                    }
+
+                    a {
+                        h6{
+                    
+                            font-size: 16px;
+                            font-weight: 700;
+                            font-family: var(--sora);
+                            color: #fff;
+                            line-height: 24px;
+                        }
+                    }
+
+                }
+
+                .arrow {
+                    a {
+                        i {
+                            font-size: 20px;
+                            font-weight: 400;
+                            transform: rotate(-50deg);
+                            color: #FFF;
+                        }
+                    }
+                }
+            }
+
+            &:hover {
+                .meta {
+                    background: var(--style-two-color);
+                }
+            }
+        }
+    }
+}
+
+// whyChoose
+.whyChoose {
+    &__image {
+        position: relative;
+        @include responsive($md){
+            margin-bottom: 100px;
+        }
+        @include responsive($xs){
+            margin-bottom: 65px;
+        }
+
+        .image {
+            position: relative;
+            border-radius: 10px;
+            max-height: 420px;
+            min-height: 420px;
+
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                position: absolute;
+                border-radius: 10px;
+            }
+
+            &:before {
+                height: 80%;
+                width: 60%;
+                background: transparent;
+                content: '';
+                border-radius: 10px;
+                position: absolute;
+                border: 1px solid #fff;
+                left: -10px;
+                bottom: -10px;
+            }
+        }
+
+        .chart__img {
+            position: absolute;
+            top: 60%;
+            left: -10%;
+            @include animation(animation, right 4s infinite alternate);
+            @include responsive($xs){
+                display: none;
+            }
+            img {
+                height: 215px;
+                width: 200px;
+                border-radius: 10px;
+                object-fit: cover;
+            }
+        }
+    }
+
+    &__content {
+        margin-left: 30px;
+
+        h3 {
+            font-size: 30px;
+            font-weight: 600;
+            color: #fff;
+            font-family: var(--sora);
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+    }
+}
+
+// footer creadit
+.style-two {
+    .footer-credit--img {
+        background: var(--style-two);
+    }
+}

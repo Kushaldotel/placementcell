@@ -1,0 +1,387 @@
+/*======== career css ========*/
+.career {
+    &__wrapper {
+        & h5 {
+            margin-bottom: 3.125rem;
+            font-size: 1.875rem;
+            color: #fff;
+            font-family: var(--sora);
+            font-weight: 600;
+        }
+
+        &--single {
+            & .single-job {
+                position: relative;
+                padding: 1.875rem;
+                border-radius: .625rem;
+                background: var(--body-bg);
+                margin-bottom: 1.875rem;
+
+                &:before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: var(--Linear-01);
+                    border-radius: inherit;
+                    z-index: -1;
+                    margin: -2px;
+                    opacity: 0;
+                    @include animation(transition, opacity .3s ease-in);
+                }
+
+                &:hover:before {
+                    opacity: 1;
+                }
+
+                & h6 {
+                    font-family: var(--sora);
+                    font-weight: 600;
+                    color: #fff;
+                    margin-bottom: 1.125rem;
+                }
+
+                & h3 {
+                    font-family: var(--sora);
+                    font-weight: 600;
+                    color: #fff;
+                    margin-bottom: 1.125rem;
+                    font-size: 1.875rem;
+                    display: inline-block;
+                }
+
+                & p {
+                    margin-bottom: 1.875rem;
+                }
+
+                &__btn {
+                    & .apply-btn {
+                        background: var(--btn-bg);
+                        color: var(--body-bg);
+                        font-family: var(--sora);
+                        font-weight: 600;
+                        font-size: 1rem;
+                        padding: .815rem 1.875rem;
+                        border: 1px solid;
+                        border-color: transparent;
+                        @include animation(transition, all .3s ease-in);
+
+                        &:hover {
+                            background: var(--body-bg);
+                            color: #fff;
+                            border-color: var(--btn-bg);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &__sidebar {
+        padding: 1.875rem;
+        background: var(--body-bg);
+        border-radius: .625rem;
+    }
+
+    &__application {
+        & .apply {
+            position: relative;
+            margin-bottom: 1.875rem;
+            z-index: 1;
+            border-radius: 5px;
+
+            &::before {
+                position: absolute;
+                content: "";
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: -1;
+                background: var(--Linear-01);
+                border-radius: inherit;
+                margin: -1px;
+
+            }
+
+            &__title {
+                font-weight: 600;
+                color: #fff;
+                text-align: center;
+                position: relative;
+                padding: 1.25rem;
+                background: var(--body-bg);
+                border-radius: .625rem;
+                font-size: 1.25rem;
+            }
+
+            & h5 {}
+        }
+
+        & form {
+            & .form-group {
+                margin-bottom: 1.25rem;
+
+                & input {
+                    width: 100%;
+                    background: var(--page-bg);
+                    padding: 1.125rem 1.25rem;
+                    border: 1px solid transparent;
+                    color: #fff;
+                    outline: none;
+                    box-shadow: none;
+                    border-radius: 5px;
+                    @include animation(transition, all.3s ease-in);
+
+                    &::placeholder {
+                        color: var(--text-color);
+                    }
+
+                    &:focus {
+                        border-color: #75f087;
+                    }
+
+                }
+
+                & textarea {
+                    width: 100%;
+                    background: var(--page-bg);
+                    padding: 1.125rem 1.25rem;
+                    border: 1px solid;
+                    border-color: transparent;
+                    color: #fff;
+                    outline: none;
+                    box-shadow: none;
+                    border-radius: 5px;
+                    min-height: 12rem;
+                    resize: none;
+                    @include animation(transition, all.3s ease-in);
+
+                    &::placeholder {
+                        color: var(--text-color);
+                    }
+
+                    &:focus-visible {
+                        border-color: #75f087;
+                    }
+
+                }
+
+                & .apply-btn {
+                    margin-top: .875rem;
+                    background: var(--btn-bg);
+                    color: var(--body-bg);
+                    font-family: var(--sora);
+                    font-weight: 600;
+                    font-size: 1rem;
+                    padding: .815rem 1.875rem;
+                    border: 1px solid;
+                    border-color: transparent;
+                    display: inline-block;
+                    width: 100%;
+                    @include animation(transition, all .3s ease-in);
+
+                    &:hover {
+                        background: var(--body-bg);
+                        color: #fff;
+                        border-color: var(--btn-bg);
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+/*======= our info =======*/
+
+.our__info {
+    @include responsive($md){
+        margin-top: 3.125rem;
+    }
+    &--text {
+        margin-top: 1.25rem;
+    
+
+        & h3 {
+            line-height: 1.5;
+            font-size: 1.875rem;
+            font-weight: 600;
+            color: #fff;
+            font-family: var(--sora);
+            margin-bottom: 1.25rem;
+        }
+
+        & p {
+            margin-bottom: 3.175rem;
+        }
+    }
+
+    &--facility {
+        display: grid;
+        grid-gap: 1.875rem;
+        grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+        &--item {
+            background: var(--body-bg);
+            color: #fff;
+            padding: 1.875rem 1.25rem;
+            border-radius: .625rem;
+            display: flex;
+            align-items: center;
+            gap: .875rem;
+           
+            &:hover{
+                & .our__info--facility--icon{
+                    background: var(--btn-bg);
+                    color: var(--body-bg);
+                }
+            }
+
+        }
+
+        &--icon {
+            height: 60px;
+            min-width: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.25rem;
+            border-radius: 50px;
+            color: #fff;
+            background: var(--page-bg);
+            @include animation(transition, all.3s ease-in);
+        }
+
+        &--text {
+            & h6 {
+                font-weight: 600;
+                font-family: var(--sora);
+                margin-bottom: .625rem;
+            }
+
+            & p {
+                margin-bottom: 0;
+                color: var(--text-color);
+            }
+        }
+    }
+}
+
+/*======= career details =======*/
+.career-details {
+    &__wrapper {
+        & .career-details__info {
+            padding-bottom: 3.175rem;
+            width: 100%;
+            & ul {
+                padding: 0;
+                margin: 0;
+                list-style: none;
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+                grid-gap: .625rem;
+                justify-content: center;
+                & li {
+                    font-weight: 600;
+                    position: relative;
+                    background-clip: padding-box;
+                    box-sizing: border-box;
+
+                    &:before {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                        z-index: -1;
+                        margin: -1px;
+                        border-radius: inherit;
+                        opacity: 0;
+                        background: var(--Linear-01);
+                        @include animation(transition, all.3s ease-in);
+                    }
+
+                    & .item {
+                        padding: 1.25rem 1.25rem;
+                        background: var(--body-bg);
+                        gap: .325rem;
+                        justify-content: center;
+
+                        & span {
+                            color: #fff;
+                        }
+
+                        & .content {
+                            background: var(--Linear-01);
+                            background-clip: text;
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                        }
+                    }
+
+                    &:hover:before {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+        & .career__thumb{
+                max-height: 36rem;
+                width: 100%;
+                border-radius: .625rem;
+                overflow: hidden;
+                position: relative;
+            & img{  
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }   
+        }
+        & .career-details__text {
+            & img {
+                max-height: 530px;
+                width: 100%;
+                object-fit: cover;
+                border-radius: 1.25rem;
+                margin-bottom: 1.875rem;
+            }
+
+            & h4 {
+                font-size: 1.526rem;
+                color: #fff;
+                margin-bottom: 1.875rem;
+                font-weight: 600;
+            }
+
+            & p {
+                &:not(:last-child) {
+                    margin-bottom: 1.875rem;
+                }
+            }
+
+            & .bullet-list {
+                margin-bottom: 1.875rem;
+                display: grid;
+                grid-template-columns: repeat(1fr);
+                list-style: none;
+                gap: 1rem;
+
+                & li {
+                    position: relative;
+                    color: #fff;
+
+                    &:before {
+                        content: "•";
+                        margin-right: 5px;
+                        color: #a8eb28;
+                    }
+                }
+            }
+
+        }
+
+    }
+}

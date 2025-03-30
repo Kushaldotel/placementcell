@@ -1,0 +1,186 @@
+/* ============ offcanvase css ============== */
+.offcanvase {
+    background: var(--body-bg) none repeat scroll 0 0;
+    top: 0;
+    width: 26.25rem;
+    height: 100%;
+    inset-inline-end: -38.625rem;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 99999;
+    overflow-y: scroll;
+    overscroll-behavior-y: contain;
+    scrollbar-width: none;
+    backdrop-filter: blur(2.315rem);
+    padding: 2.66667rem;
+    position: fixed;
+    @include responsive($xs){
+        width: 100%;
+    }
+
+
+    &__menu {
+        &--content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &--top {
+            align-items: center;
+        }
+
+        &--close-icon {
+            font-family: 1.5rem;
+            color: #fff;
+            cursor: pointer;
+            background: transparent;
+            height: 2.5rem;
+            width: 2.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: .5rem;
+            border: 1px solid var(--bc);
+
+            &:hover {
+                background: #6df196;
+
+                & i {
+                    color: var(--body-bg);
+                }
+            }
+        }
+
+        &--contact {
+            color: var(--text-color);
+            text-align: center;
+            & h4 {
+                color: #fff;
+            }
+        }
+
+        &--contact-text {
+            & li {
+                list-style: none;
+                margin-bottom: 1rem;
+            }
+
+            & a {
+                color: #fff;
+            }
+        }
+
+        &--contact-title {
+            text-decoration: 2px underline;
+        }
+
+        &--social {
+            & ul {
+                & li {
+                    list-style-type: none;
+
+                    & a i {
+                        font-size: 1.5rem;
+                        color: #fff;
+                        @include animation(transition, ease-in .3s);
+                    }
+
+                    &:hover a i {
+                        color: #6df196;
+                    }
+                }
+            }
+        }
+
+        & .mean-bar {
+            padding: 0;
+        }
+
+        & .mean-bar>a.meanmenu-reveal {
+            display: none !important;
+            font-size: 0px;
+            text-indent: 0;
+        }
+
+        & .mean-bar .mean-nav {
+            margin-top: -5px;
+            background: var(--body-bg);
+
+            &>ul {
+                display: block !important;
+
+                & li a.mean-expand {
+                    border: 0 !important;
+                    margin-top: 0;
+                    background: transparent;
+                }
+
+                & li a {
+                    text-transform: capitalize;
+                    font-size: .9rem;
+                    border-top: 1px solid var(--bc);
+                }
+            }
+
+        }
+    }
+
+    &__button {
+        display: flex;
+        gap: .5rem;
+        justify-content: center;
+
+        & a {
+            padding: .625rem 1.25rem;
+            border: 1px solid #D0D0CF;
+            border-radius: .625rem;
+            color: #fff;
+            font-weight: 500;
+            @include animation(transition, all .5s ease-in);
+
+            &.signup {
+                background: linear-gradient(42deg, #E9F950 -1.07%, #55F4C4 -1.06%, #BAE906 104.1%);
+                border-radius: .625rem;
+                color: #0D0C1C;
+            }
+
+            &:hover {
+                background: linear-gradient(42deg, #E9F950 -1.07%, #55F4C4 -1.06%, #BAE906 104.1%);
+                border-radius: .625rem;
+                color: #0D0C1C;
+                border-color: transparent;
+            }
+        }
+    }
+
+}
+
+.thanks-giving {
+    border-radius: 1.25rem;
+    overflow: hidden;
+    padding-top: 30px;
+}
+
+.offcanvase-menu {}
+
+.offcanvas__overlay {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: #0F0E0E;
+    z-index: 900;
+    top: 0;
+    opacity: 0;
+    visibility: hidden;
+    inset-inline-end: 0;
+    @include animation(transition, all .3s ease-in 0);
+}
+
+.offcanvas__overlay.overlay-open {
+    opacity: 0.8;
+    visibility: visible;
+}
+
+.offcanvase.info-open {
+    opacity: 1;
+    inset-inline-end: 0;
+}

@@ -1,0 +1,131 @@
+/*========= hero slider =========*/
+.hero-slider {}
+
+.slider {
+    & .slick-dotted.slick-slider{
+        margin-bottom: 0;
+    }
+    &__wrapper {
+        position: relative;
+        & .slick-dots {
+            margin: 0;
+            display: flex;
+            position: static;
+            padding-top: 50px;
+            align-items: center;
+            justify-content: center;
+
+            & li {
+                width: auto;
+                height: auto;
+                margin: 0 1px;
+                display: inline-block;
+
+                button {
+                    margin: 0;
+                    padding: 0;
+                    width: 25px;
+                    height: 25px;
+                    display: block;
+                    border-radius: 100%;
+                    @include animation(transition, all .3s ease-in);
+                    border: 1px solid transparent;
+
+                    &:before {
+                        top: 50%;
+                        left: 50%;
+                        opacity: 1;
+                        content: '';
+                        width: 10px;
+                        height: 10px;
+                        color: transparent;
+                        border-radius: 100%;
+                        transform: scale(1);
+                        background-color: #9E9E94;
+                        @include prefix(transform, translate(-50%, -50%));
+                    }
+
+                }
+                &:hover,
+                &.slick-active {
+                    button {
+                        opacity: 1;
+                        border-color: #fff;
+
+                        &:before {
+                            opacity: 1;
+                            color: transparent;
+                            background-color: #fff;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &__single {
+        position: relative;
+
+        & img {
+            width: 100%;
+            max-height: 40rem;
+            object-fit: cover;
+            border-radius: .856rem;
+            object-position: top;
+        }
+
+        & .slider--content {
+            background: var(--body-bg);
+            display: flex;
+            align-items: center;
+            max-width: max-content;
+            padding: 1.25rem;
+            border-radius: 5.375rem 0 0 5.375rem;
+            padding-left: 2.5rem;
+            position: absolute;
+            right: 0;
+            bottom: 10%;
+
+            & li {
+                &:not(:last-child){
+                    list-style: none;
+                height: 3.75rem;
+                width: 3.75rem;
+                border-radius: 3.125rem;
+                position: relative;
+                background: var(--btn-bg);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-weight: 700;
+                margin-left: -1.5rem;
+                }
+                &:last-child{
+                    margin-left: 1rem;
+                }
+
+                & img {
+                    position: absolute;
+                    height: 100%;
+                    width: 100%;
+                    border-radius: 3.125rem;
+                }
+
+                & i {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: var(--body-bg);
+                }
+            }
+
+            & span {
+                font-family: var(--sora);
+                color: #fff;
+
+                & b {
+                    font-size: 1.562rem;
+                }
+            }
+        }
+    }
+}

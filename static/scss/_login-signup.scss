@@ -1,0 +1,127 @@
+/*====== login ========*/
+.login{
+    &__wrapper{
+        padding: 3.75rem 4.375rem;
+        border: 1px solid var(--bc);
+        @include responsive($xs){
+            padding: 0;
+            border: none;
+        }
+        &--title{
+            text-align: center;
+            text-transform: capitalize;
+            & h5{
+                font-size: 1.25rem;
+                font-weight: 600;
+                color: #fff;
+                margin-bottom: 1rem;
+            }
+            p{margin: 0;}
+        }
+    }
+    &__social{
+        margin-top: 1.875rem;
+        & ul li{
+            display: flex;
+            gap: 1rem;
+            @include responsive($sm){
+                flex-direction: column;
+            }
+            & a{
+                padding: 1.125rem 1.25rem;
+                background: var(--body-bg);
+                border-radius: .625rem;
+                color: #fff;
+                display: flex;
+                gap: .875rem;
+                position: relative;
+                &:before{
+                    position: absolute;
+                    content: '';
+                    top: 0;
+                    left: 0;
+                    bottom: 0;
+                    right: 0;
+                    border-radius: inherit;
+                    z-index: -1;
+                    background: var(--Linear-01);
+                    margin: -1px;
+                    @include animation(transition, all .3s ease-in);
+                    opacity: 0;
+                }
+                &:hover:before{
+                    opacity: 1;
+                }
+            }
+        }
+    }
+    &__form{
+        & .form-group{
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            margin-bottom: 1.25rem;
+            & input{
+                width: 100%;
+                border: 1px solid var(--bc);
+                border-radius: 0;
+                padding:.625rem 1.25rem;
+                background: var(--body-bg);
+                outline: none;
+                color: #fff;
+                box-shadow: none;
+                @include animation(transition, all .3s ease);
+                &:focus {
+                    border-color: #75f087;
+                }
+                &::placeholder{
+                    color: var(--text-color);
+                }
+
+            }
+        }
+        & .remember-me{
+            margin: 0;
+            a{
+                color: #fff;
+                text-decoration: underline;
+            }
+        }
+        & .forgot-password{
+            a{
+                color: #fff;
+                font-weight: 500;
+            }
+        }
+        & .login-button{
+            button{
+                width: 100%;
+            }
+        }
+        & .register-button{
+            margin-top: 1.875rem;
+            text-transform: capitalize;
+            p{
+                margin: 0;
+                a{
+                    text-decoration: underline;
+                    font-weight: 600;
+                    font-family: var(--sora);
+                    color: #fff;
+                }
+            }
+        }
+        & .input-group{
+            & .single-input{
+                & input{
+                    padding: .625rem 1.25rem !important;
+                }
+
+            }
+        }
+    }
+}
+
+
+
+/*====== Signup ========*/

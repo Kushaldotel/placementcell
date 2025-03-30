@@ -1,0 +1,57 @@
+/*========== information css start ===========*/
+.information {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    overflow: hidden;
+
+    &__wrapper {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        background: #151429;
+        padding: 2rem 0;
+        -webkit-transform: rotate(-2deg);
+        -ms-transform: rotate(-2deg);
+        transform: rotate(-2deg);
+    }
+
+    &__content {
+        @include animation(animation, Marque 50s linear infinite);
+        display: flex;
+
+        & .single-information {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-right: 2rem;
+            white-space: nowrap;
+
+            & .icon {}
+
+            & h6 {
+                text-transform: uppercase;
+                margin: 0;
+                font-size: 1.2rem;
+
+                & span {
+                    background: linear-gradient(42deg, #E9F950 -1.07%, #55F4C4 -1.06%, #BAE906 104.1%);
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    font-family: var(--sora);
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,102 @@
+/*====== contact us =======*/
+.contact {
+    &__single {
+        position: relative;
+        margin-bottom: 1.875rem;
+
+        &:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--Linear-01);
+            border-radius: 1.25rem;
+            z-index: -1;
+            margin: -2px;
+            opacity: 0;
+            @include animation(transition, opacity .3s ease-in);
+        }
+
+        &:hover {
+            &:before {
+                opacity: 1;
+            }
+            & .icon{
+                background: var(--btn-bg);
+                color: var(--body-bg);
+            }
+
+        }
+
+        &--item {
+            padding: 3.125rem;
+            background: var(--body-bg);
+            border-radius: 1.25rem;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+
+            & .icon {
+                background: var(--page-bg);
+                border-radius: 3.125rem;
+                height: 3.75rem;
+                width: 3.75rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #fff;
+                font-size: 1.125rem;
+                margin-bottom: 1.875rem;
+                @include animation(transition, background .3s ease-in);
+            }
+
+            & .content {
+                & h6 {
+                    font-family: var(--sora);
+                    font-size: 1.125rem;
+                    font-weight: 600;
+                    color: #fff;
+                    margin-bottom: 1.25rem;
+                }
+
+                & a,
+                p {
+                    display: block;
+                    color: #fff;
+
+                    &:not(:last-child) {
+                        margin-bottom: 1rem;
+                    }
+                }
+
+                & p {
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+    &__form {
+        margin-top: 2.5rem;
+    }
+
+    &__template {
+        & .submit-btn {
+            text-align: center;
+        }
+    }
+    &__map{
+        & #map{
+            height: 32rem;
+            max-width: 100%;
+        }
+        & .google__map{
+            height: 32rem;
+            width: 100%;
+        }
+    }
+}

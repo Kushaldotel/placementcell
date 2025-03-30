@@ -1,0 +1,180 @@
+/*======== Pricing Table ==========*/
+.pricing {
+    @include responsive($md){
+        padding-top: 6.25rem;
+    }
+    &__item {
+        background: var(--body-bg);
+        padding: 1.875rem 1.5rem;
+        border: 2px solid transparent;
+        position: relative;
+        box-sizing: border-box;
+        background-clip: padding-box;
+        overflow: visible;
+        border-radius: 0.625rem;
+        margin-bottom: 1.875rem;
+
+        &:before {
+            content: "";
+            position: absolute; 
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: -1;
+            margin: -2px;
+            border-radius: inherit;
+            background: var(--Linear-01);
+            opacity: 0;
+            @include animation(transition, opacity .3s ease-in);
+
+        }
+        &:hover{
+            &:before{
+                opacity: 1;
+            }
+            
+        }
+        &.popular{
+                padding-top: 3.125rem;
+                @include responsive($md){
+                    margin-top: 1.25rem;
+                }
+                &::before{
+                    opacity: 1;
+                }
+            }
+        
+
+        & .popular-tag {
+            position: absolute;
+            top: -4%;
+            left: 50%;
+            background: var(--btn-bg);
+            padding: .625rem 1.5rem;
+            border-radius: .3125rem;
+            color: var(--body-bg);
+            font-family: var(--sora);
+            font-weight: 600;
+            transform: translate(-50%, -5%);
+            font-size: 1rem;
+            width: max-content;
+        }
+
+        &--title {
+            & h5 {
+                font-size: 1.25rem;
+                font-weight: 600;
+                font-family: var(--sora);
+                color: #fff;
+                margin: 0;
+            }
+        }
+
+        &--price {
+            padding: 1.875rem 0;
+            position: relative;
+
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0%;
+                height: 1px;
+                width: 100%;
+                background: var(--btn-bg);
+            }
+
+            & .price {
+                line-height: 1;
+
+                & span {
+                    font-size: 3.125rem;
+                    font-weight: 600;
+                    font-family: var(--sora);
+                    color: #fff;
+                    margin-right: .5rem;
+                    white-space: nowrap;
+
+                    & sub {
+                        font-size: 1.875rem;
+                        margin-right: .5rem;
+                    }
+                }
+
+                & em {
+                    background: var(--Linear-01);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+                    font-family: var(--sora);
+                    font-style: normal;
+                    text-transform: capitalize;
+                }
+
+            }
+        }
+
+        &--list {
+            margin-top: 1.875rem;
+
+            & li {
+                position: relative;
+                margin-left: 2rem;
+
+                &:not(:last-child) {
+                    margin-bottom: 1.125rem;
+                }
+
+                &::before {
+                    content: "\f00c";
+                    position: absolute;
+                    top: 0;
+                    left: -2rem;
+                    font-family: var(--font-awesome);
+                    color: var(--btn-bg);
+                }
+            }
+        }
+
+        &--btn {
+            margin-top: 1.875rem;
+            background-clip: padding-box;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 1;
+            border-radius: 0.5rem;
+
+            &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                margin: -1px;
+                border-radius: inherit;
+                background: var(--Linear-01);
+                z-index: -1;
+                opacity: 1;
+                @include animation(transition, opacity.3s ease-in);
+            }
+            &:hover{
+                &::before{
+                    opacity: 0;
+                }
+            }
+            & .pricing-btn {
+                background: var(--page-bg);
+                display: inline-block;
+                padding: 1.125rem 0;
+                display: inherit;
+                color: #fff;
+                font-weight: 600;
+                border-radius: .5rem;
+            }
+
+        }
+    }
+   
+}

@@ -1,0 +1,270 @@
+{% extends 'boiler_plate.html' %}
+{% load static %}
+
+{% block title %}Career Opportunities - Placement Cell{% endblock %}
+
+{% block extra_css %}
+
+<style>
+
+
+	.single-job {
+		padding: 30px;
+		margin-bottom: 30px;
+		border-radius: 10px;
+		background-color: rgba(255, 255, 255, 0.97);
+		border: 1px solid rgba(0,0,0,0.03);
+		transition: all 0.3s ease;
+		box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+	}
+
+	.single-job:hover {
+		box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+		transform: translateY(-5px);
+	}
+
+	.single-job h6 {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .single-job h3 {
+        font-size: 22px;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    .single-job p {
+        color: #666;
+        margin-bottom: 20px;
+        line-height: 1.6;
+    }
+    .job-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .job-meta span {
+        display: inline-flex;
+        align-items: center;
+        color: #666;
+        font-size: 14px;
+    }
+
+    .job-meta span i {
+        margin-right: 8px;
+        color: #007bff;
+    }
+
+    .single-job__btn {
+        margin-top: 20px;
+    }
+    .apply-btn {
+        padding: 10px 25px;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        transition: all 0.3s ease;
+    }
+
+    .apply-btn:hover {
+        background-color: #0056b3;
+        color: white;
+    }
+
+
+</style>
+{% endblock extra_css %}
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>Career Opportunities</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="career pt-100 pb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-xl-8">
+                <div class="career__wrapper">
+                    <h5 class="magic-hover">Join Multiple Dynamic Team</h5>
+
+                    <div class="career__wrapper--single">
+                        {% if page_obj %}
+                            {% for job in page_obj %}
+                            <!-- single job -->
+                            <div class="single-job">
+                                <h6>{{ job.get_job_type_display }}</h6>
+                                <h3 class="magic-hover">{{ job.title }}</h3>
+                                <p>{{ job.description|striptags|truncatechars:200 }}</p>
+                                <div class="job-meta mb-3">
+                                    {% if job.location %}
+                                    <span><i class="fa-solid fa-location-dot"></i> {{ job.location }}</span>
+                                    {% endif %}
+                                    {% if job.salary %}
+                                    <span><i class="fa-solid fa-indian-rupee-sign"></i> {{ job.salary }}</span>
+                                    {% endif %}
+                                    <span><i class="fa-solid fa-calendar"></i> Posted: {{ job.posted_on|date:"M d, Y" }}</span>
+                                </div>
+                                <div class="single-job__btn">
+                                    <a href="{% url 'job-detail-view' job.id %}" class="btn apply-btn">View Details</a>
+                                </div>
+                            </div>
+                            <!-- single job end -->
+                            {% endfor %}
+                        {% else %}
+                            <div class="alert alert-info">
+                                No job vacancies found matching your criteria. Please try a different search.
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    {% if page_obj.has_other_pages %}
+                    <nav aria-label="Page navigation" class="mt-4">
+                        <ul class="pagination justify-content-center">
+                            {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if job_type %}&job_type={{ job_type }}{% endif %}{% if location %}&location={{ location }}{% endif %}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>
+                            </li>
+                            {% endif %}
+
+                            {% for i in page_obj.paginator.page_range %}
+                                {% if page_obj.number == i %}
+                                <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+                                {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{ i }}{% if search_query %}&search={{ search_query }}{% endif %}{% if job_type %}&job_type={{ job_type }}{% endif %}{% if location %}&location={{ location }}{% endif %}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if job_type %}&job_type={{ job_type }}{% endif %}{% if location %}&location={{ location }}{% endif %}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&raquo;</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-lg-5 col-xl-4">
+                <div class="career__sidebar">
+                    <!-- Job Search -->
+                    <div class="sidebar-widget mb-4">
+                        <h4>Job Search</h4>
+                        <div class="search-form">
+                            <form method="get" action="{% url 'career' %}">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="search" placeholder="Search by title..." value="{{ search_query }}">
+                                    <button type="submit" class="btn btn-primary">Search</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+				<!-- Job Filters -->
+				<div class="sidebar-widget mb-4 p-4 border rounded shadow-sm bg-light" style="display: flex; flex-direction: column; gap: 15px;">
+					<h4 class="text-primary" style="margin-bottom: 15px;">Filter Jobs</h4>
+					<form method="get" action="{% url 'career' %}">
+						{% if search_query %}
+						<input type="hidden" name="search" value="{{ search_query }}">
+						{% endif %}
+
+						<div class="mb-3" style="display: flex; flex-direction: column; gap: 5px;">
+							<label for="job_type" class="form-label fw-bold">Job Type</label>
+							<select class="form-select border-primary" name="job_type" id="job_type" style="padding: 8px; border-radius: 5px;">
+								<option value="" {% if not job_type %}selected{% endif %}>All Job Types</option>
+								{% for job_type_value, job_type_display in job_types %}
+								<option value="{{ job_type_value }}" {% if job_type == job_type_value %}selected{% endif %}>{{ job_type_display }}</option>
+								{% endfor %}
+							</select>
+						</div>
+
+						<div class="mb-3" style="display: flex; flex-direction: column; gap: 5px;">
+							<label for="location" class="form-label fw-bold">Location</label>
+							<select class="form-select border-primary" name="location" id="location" style="padding: 8px; border-radius: 5px;">
+								<option value="" {% if not location %}selected{% endif %}>All Locations</option>
+								{% for loc in locations %}
+								{% if loc %}
+								<option value="{{ loc }}" {% if location == loc %}selected{% endif %}>{{ loc }}</option>
+								{% endif %}
+								{% endfor %}
+							</select>
+						</div>
+
+						<button type="submit" class="btn btn-primary w-100 fw-bold shadow-sm" style="padding: 10px; border-radius: 5px;">Apply Filters</button>
+					</form>
+				</div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="our__info">
+                    <div class="our__info--text">
+                        <h3 class="magic-hover">Our Placement Cell has been Connecting Students with Opportunities for Over 10 Years!</h3>
+                        <p>Our placement cell bridges the gap between academia and industry, helping students find their dream jobs and companies discover exceptional talent. We provide comprehensive career guidance, resume building workshops, and interview preparation sessions to ensure our students are well-prepared for the professional world.
+                            <br>
+                            We have established strong relationships with leading companies across various sectors, ensuring a diverse range of opportunities for our students. Our dedicated team works tirelessly to match students with positions that align with their skills, interests, and career goals.
+                            Our placement process is designed to be transparent, efficient, and student-friendly. We provide continuous support throughout the recruitment cycle, from application to offer acceptance.
+                        </p>
+                    </div>
+                    <div class="our__info--facility">
+                        <div class="our__info--facility--item">
+                            <div class="our__info--facility--icon">
+                                <i class="fa-solid fa-award"></i>
+                            </div>
+                            <div class="our__info--facility--text">
+                                <h6>High Placement Rate</h6>
+                                <p>We consistently achieve a placement rate of over 95% across all departments.</p>
+                            </div>
+                        </div>
+                        <div class="our__info--facility--item">
+                            <div class="our__info--facility--icon">
+                                <i class="fa-solid fa-handshake"></i>
+                            </div>
+                            <div class="our__info--facility--text">
+                                <h6>Industry Partnerships</h6>
+                                <p>We collaborate with 100+ companies to provide diverse opportunities.</p>
+                            </div>
+                        </div>
+                        <div class="our__info--facility--item">
+                            <div class="our__info--facility--icon">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <div class="our__info--facility--text">
+                                <h6>Career Development</h6>
+                                <p>We offer comprehensive training programs to enhance employability.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

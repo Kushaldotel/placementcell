@@ -1,0 +1,111 @@
+/*======== breadcrumb css ======== */
+.breadcrumb {
+    background: var(--body-bg);
+    margin-bottom: 0;
+
+    &__vector {
+        position: relative;
+
+        & img:nth-child(1) {
+            position: absolute;
+            right: 20%;
+            top: -3.75rem;
+            @include animation(animation, top 5s infinite alternate);
+
+            @include responsive($sm) {
+                display: none;
+            }
+
+            @include responsive($md) {
+                right: 25%;
+            }
+        }
+
+        & img:nth-child(2) {
+            position: absolute;
+            left: 30%;
+            @include animation(animation, roundAnim 10s linear infinite);
+
+            @include responsive($md) {
+                top: -3.75rem;
+                left: 45%;
+            }
+
+            @include responsive($xs) {
+                top: 0;
+                position: absolute;
+                left: 70%;
+            }
+        }
+    }
+
+    &__wrapper {
+        display: grid;
+        grid-template-columns: 30% auto;
+        justify-content: space-between;
+        align-items: center;
+
+        @include responsive($md) {
+            grid-template-columns: 60% auto;
+        }
+
+        @include responsive($xs) {
+            grid-template-columns: 100%;
+            grid-gap: 1.25rem;
+        }
+
+        &--text {
+            & .title {
+                font-size: 1.25rem;
+                font-weight: 600;
+                font-family: var(--inter);
+                text-transform: capitalize;
+                color: #fff;
+                margin-bottom: .9375rem;
+
+                @include responsive($xs) {
+                    margin: 0;
+                }
+            }
+
+            & p {
+                margin-bottom: 0;
+
+                @include responsive($xs) {
+                    display: none;
+                }
+            }
+        }
+
+        &--link {
+            & ul {
+                display: flex;
+                list-style: none;
+                padding: 0;
+                margin: 0;
+
+                & li+li:before {
+                    content: '-' !important;
+                    background: var(--Linear-01);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+
+                }
+
+                & li.active {
+                    background: var(--Linear-01);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+                    font-family: var(--sora);
+                    text-transform: capitalize;
+                }
+
+                & a {
+                    color: #fff;
+                }
+            }
+        }
+    }
+}

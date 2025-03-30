@@ -1,0 +1,17 @@
+.arrow-style .slick-next {
+	display: inline-block;
+	border-right: 1px solid #ddd;
+	padding-right: 15px;
+	margin-right: 35px;
+}
+
+.arrow-style .slick-arrow {
+	position: absolute;
+	right: 10px;
+	top: -75px;
+	border: 0;
+	background-color: transparent;
+	cursor: pointer;
+	color: #383b40;
+	transition: .3s;
+}

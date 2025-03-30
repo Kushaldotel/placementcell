@@ -1,0 +1,150 @@
+/*====== error ======*/
+.error {
+    &__wrapper {
+        position: relative;
+        text-align: center;
+
+        & .error {
+            &__icon--animate {
+
+                & img:nth-child(1) {
+                    position: absolute;
+                    right: 9%;
+                    z-index: -1;
+                    top: 3%;
+                    @include animation(animation, offOn 10s infinite alternate);
+                    @include responsive($lg){
+                        right: -6%;
+                    }
+                    @include responsive($md){
+                        height: 200px;
+                    }
+                    @include responsive($sm){
+                        display: none;
+                    }
+                }
+
+                & img:nth-child(2) {
+                    position: absolute;
+                    bottom: 30%;
+                    left: 20%;
+                    @include animation(animation, bottom 5s infinite alternate);
+                    @include responsive($lg){
+                        bottom: 40%;
+                        left: 5%;
+                    }
+                    @include responsive($sm){
+                        display: none;
+                    }
+                }
+
+                & img:nth-child(3) {
+                    position: absolute;
+                    bottom: 5%;
+                    right: 30%;
+                    @include animation(animation, top 5s infinite alternate);
+                    @include responsive($md){
+                        bottom: 10%;
+                        right: 5%;
+                    }
+                    @include responsive($sm){
+                        display: none;
+                    }
+                }
+
+                & img:nth-child(4) {
+                    position: absolute;
+                    bottom: 5%;
+                    left: 15%;
+                    @include animation(animation, roundAnim 5s linear infinite);
+                    @include responsive($lg){
+                        left: 10%;
+                    }
+                }
+
+                & img:nth-child(5) {
+                    position: absolute;
+                    bottom: 0;
+                    right: 20%;
+                    @include animation(animation, roundAnim 5s linear infinite);
+                    @include responsive($lg){
+                        right: 5%;
+                    }
+                    @include responsive($md){
+                        right: 0;
+                        bottom: 35%;
+                    }
+                }
+
+                & img:nth-child(6) {
+                    position: absolute;
+                    max-width: 100%;
+                    bottom: 0;
+                    left: 0;
+                    object-fit: cover;
+                    @include animation(animation, offOn 5s ease-in infinite alternate);
+                    @include responsive($sm){
+                        display: none;
+                    }
+
+                }
+            }
+
+            &__text {
+                position: relative;
+                z-index: 1;
+
+                & h1 {
+                    font-size: 25rem;
+                    font-weight: 600;
+                    font-family: var(--sora);
+                    margin: 0;
+                    background: var(--Linear-01);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+                    @include responsive($md){
+                        font-size: 20rem;
+                    }
+                    @include responsive($sm){
+                        font-size: 15rem;
+                    }
+                    @include responsive($xs){
+                        font-size: 10rem;
+                    }
+
+                }
+
+                & h2 {
+                    font-size: 1.875rem;
+                    font-weight: 600;
+                    font-family: var(--sora);
+                    color: #fff;
+
+                }
+
+                & p {
+                    margin-bottom: 0;
+                    display: block;
+                }
+            }
+
+            &__btn {
+                z-index: 1;
+                position: relative;
+                margin-top: 2.5rem;
+            }
+            &__helpus{
+                position: relative;
+                margin-top: 1.875rem;
+                & p{
+                    & a{
+                        display: block;
+                        text-decoration: underline;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+}

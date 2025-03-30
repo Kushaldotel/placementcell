@@ -1,0 +1,294 @@
+{% extends 'boiler_plate.html' %}
+{% load static %}
+
+{% block title %}Contact Us - Placement Cell{% endblock %}
+
+{% block extra_css %}
+<style>
+    .contact-section {
+        padding: 80px 0;
+        background-color: rgba(0,0,0,0.03);
+    }
+
+    .contact-info {
+        padding: 30px;
+        background-color: rgba(0,0,0,0.03);
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(251, 237, 237, 0.92);
+        height: 100%;
+    }
+
+    .contact-info h2 {
+        font-size: 32px;
+        margin-bottom: 25px;
+        color: white;
+        font-weight: 700;
+        position: relative;
+        padding-bottom: 15px;
+    }
+
+    .contact-info h2:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background-color: #007bff;
+    }
+
+    .contact-info p {
+        color: white;
+        line-height: 1.8;
+        margin-bottom: 30px;
+    }
+
+    .contact-details {
+        margin-top: 30px;
+    }
+
+    .contact-item {
+        display: flex;
+        margin-bottom: 25px;
+    }
+
+    .contact-item .icon {
+        width: 50px;
+        height: 50px;
+        background-color: rgba(0,0,0,0.03);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+        color: #007bff;
+        font-size: 20px;
+    }
+
+    .contact-item .text h5 {
+        font-size: 18px;
+        margin-bottom: 5px;
+        color: white;
+    }
+
+    .contact-item .text p {
+        margin-bottom: 0;
+        color: white;
+    }
+
+    .contact-form {
+        padding: 30px;
+        background-color: rgba(0,0,0,0.03);
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(230, 229, 229, 0.89);
+    }
+
+    .contact-form h3 {
+        font-size: 24px;
+        margin-bottom: 25px;
+        color: white;
+        font-weight: 600;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: white;
+        font-weight: 500;
+    }
+
+    .form-control {
+        padding: 12px 15px;
+        border-radius: 6px;
+        border: 1px solid rgba(211, 209, 209, 0.85);
+        background-color: rgba(254, 241, 241, 0.55);
+        width: 100%;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    }
+
+    textarea.form-control {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    .btn-primary {
+        padding: 12px 30px;
+        background-color: #007bff;
+        border: none;
+        border-radius: 6px;
+        color: white;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+    }
+
+    .map-section {
+        padding: 80px 0;
+        background-color: rgba(0,0,0,0.03);
+    }
+
+    .map-container {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+    }
+
+    .alert {
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 6px;
+    }
+
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="page-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h1>Contact Us</h1>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="contact-section">
+	<div class="container">
+		{% if messages %}
+		<div class="row mb-4">
+			<div class="col-12">
+				{% for message in messages %}
+				<div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %}">
+					{{ message }}
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		{% endif %}
+
+		<div class="row">
+			<div class="col-lg-6 mb-4 mb-lg-0">
+				<div class="contact-info">
+					<h2>Get in Touch</h2>
+					<p>Have questions about our placement services? Reach out to us using the contact information below or fill out the form. Our team is ready to assist you with any inquiries regarding career opportunities, placement processes, or industry partnerships.</p>
+
+					<div class="contact-details">
+						<div class="contact-item">
+							<div class="icon">
+								<i class="fa-solid fa-location-dot"></i>
+							</div>
+							<div class="text">
+								<h5>Our Location</h5>
+								<p>University Campus, Main Building<br>Kathmandu, Nepal - 44600</p>
+							</div>
+						</div>
+
+						<div class="contact-item">
+							<div class="icon">
+								<i class="fa-solid fa-phone"></i>
+							</div>
+							<div class="text">
+								<h5>Phone Number</h5>
+								<p>+977 9841843854<br>+977 01-4107000</p>
+							</div>
+						</div>
+
+						<div class="contact-item">
+							<div class="icon">
+								<i class="fa-solid fa-envelope"></i>
+							</div>
+							<div class="text">
+								<h5>Email Address</h5>
+								<p>contact@placement.lbef.org<br>info@placement.lbef.org</p>
+							</div>
+						</div>
+
+						<div class="contact-item">
+							<div class="icon">
+								<i class="fa-solid fa-clock"></i>
+							</div>
+							<div class="text">
+								<h5>Working Hours</h5>
+								<p>Sunday - Friday: 9:00 AM - 5:00 PM<br>Saturday: Closed</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6">
+				<div class="contact-form">
+					<h3>Send us a Message</h3>
+					<form id="contactForm" method="post" action="{% url 'contact' %}">
+						{% csrf_token %}
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="name">Your Name</label>
+									<input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="email">Email Address</label>
+									<input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="subject">Subject</label>
+							<input type="text" class="form-control" id="subject" name="subject" placeholder="Enter subject" required>
+						</div>
+
+						<div class="form-group">
+							<label for="message">Message</label>
+							<textarea class="form-control" id="message" name="message" rows="5" placeholder="Enter your message" required></textarea>
+						</div>
+
+						<button type="submit" class="btn btn-primary">Send Message</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="map-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="map-container">
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.2585013892!2d85.34091307619!3d27.709863126191!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb199a06c2eaf9%3A0xc5670a9173e161de!2sLBEF%20Campus!5e0!3m2!1sen!2snp!4v1685123456789!5m2!1sen!2snp" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

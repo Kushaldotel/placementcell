@@ -1,0 +1,72 @@
+{% extends 'boiler_plate.html' %}
+{% load static %}
+
+{% block title %}Login - Placement Cell{% endblock %}
+
+{% block content %}
+<section class="login-section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-5 col-md-8">
+				<div class="login-card">
+					<div class="login-header text-center">
+						<img src="{% static 'img/logo/logo.svg' %}" alt="Placement Cell Logo" class="login-logo">
+						<h2>Welcome Back</h2>
+						<p>Sign in to access your account</p>
+					</div>
+
+					{% if messages %}
+					<div class="messages">
+						{% for message in messages %}
+						<div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+							{{ message }}
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
+						{% endfor %}
+					</div>
+					{% endif %}
+
+					<form class="login-form" method="post" action="{% url 'login' %}">
+						{% csrf_token %}
+						<div class="form-group">
+							<label for="email">Email</label>
+							<div class="input-group">
+								<span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+								<input type="text" class="form-control" id="email" name="email" placeholder="Enter your username" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="password">Password</label>
+							<div class="input-group">
+								<span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+								<input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+							</div>
+						</div>
+
+						<div class="form-check">
+							<input type="checkbox" class="form-check-input" id="rememberMe" name="remember_me">
+							<label class="form-check-label" for="rememberMe">Remember me</label>
+							<a href="#" class="forgot-password">Forgot Password?</a>
+						</div>
+
+						<button type="submit" class="btn btn-primary btn-block">Sign In</button>
+					</form>
+
+					<div class="social-login">
+						<p class="text-center">Or sign in with</p>
+						<div class="social-buttons">
+							<a href="#" class="btn btn-outline-secondary"><i class="fa-brands fa-google"></i> Google</a>
+							<a href="#" class="btn btn-outline-secondary"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+						</div>
+					</div>
+
+					<div class="login-footer text-center">
+						<p>For student registration, please contact your department coordinator.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

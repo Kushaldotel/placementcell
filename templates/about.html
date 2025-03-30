@@ -1,0 +1,177 @@
+{% extends 'boiler_plate.html' %}
+{% load static %}
+
+{% block title %}About Us - Placement Cell{% endblock %}
+
+{% block extra_css %}
+<style>
+    .about-section {
+        padding: 80px 0;
+        background-color: rgba(0,0,0,0.03);
+    }
+
+    .about-image {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        margin-bottom: 30px;
+    }
+
+    .about-image img {
+        width: 100%;
+        height: auto;
+        transition: transform 0.5s ease;
+    }
+
+    .about-image:hover img {
+        transform: scale(1.03);
+    }
+
+    .about-content {
+        padding: 20px;
+    }
+
+    .about-content h2 {
+        font-size: 32px;
+        margin-bottom: 25px;
+        color: #333;
+        font-weight: 700;
+        position: relative;
+        padding-bottom: 15px;
+    }
+
+    .about-content h2:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background-color: #007bff;
+    }
+
+    .about-content p {
+        color: #666;
+        line-height: 1.8;
+        margin-bottom: 20px;
+        font-size: 16px;
+    }
+
+    .mission-vision {
+        margin-top: 50px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+
+    .mission-box, .vision-box {
+        flex: 1;
+        min-width: 250px;
+        padding: 30px;
+        background-color: rgba(0,0,0,0.03);
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+        transition: all 0.3s ease;
+    }
+
+    .mission-box:hover, .vision-box:hover {
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        transform: translateY(-5px);
+    }
+
+    .mission-box h3, .vision-box h3 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #333;
+        font-weight: 600;
+    }
+
+    .mission-box i, .vision-box i {
+        font-size: 40px;
+        color: #007bff;
+        margin-bottom: 20px;
+        display: block;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="page-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h1>About Us</h1>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="about-section">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-6">
+				<div class="about-image">
+					<img src="https://5.imimg.com/data5/ANDROID/Default/2022/3/BF/WB/EM/30365395/product-jpeg-500x500.jpg" alt="About Us">
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="about-content">
+					<h2>Our Mission</h2>
+					<p>The Placement Cell is dedicated to bridging the gap between students and industry, facilitating successful career transitions for our graduates. We strive to provide comprehensive placement services that prepare students for the professional world and connect them with opportunities that match their skills and aspirations.</p>
+					<p>Our team works tirelessly to build and maintain relationships with leading companies across various sectors, ensuring a diverse range of opportunities for our students.</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="mission-vision">
+			<div class="mission-box">
+				<i class="fa-solid fa-bullseye"></i>
+				<h3>Our Mission</h3>
+				<p>To empower students with the skills, knowledge, and opportunities they need to launch successful careers. We aim to be the bridge that connects talented graduates with industry leaders, fostering mutually beneficial relationships.</p>
+			</div>
+			<div class="vision-box">
+				<i class="fa-solid fa-eye"></i>
+				<h3>Our Vision</h3>
+				<p>To be recognized as the premier placement cell that consistently delivers exceptional talent to the industry while ensuring our students achieve their career aspirations and professional goals.</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="achievements-section py-5">
+	<div class="container">
+		<div class="row text-center">
+			<div class="col-12 mb-5">
+				<h2 class="section-title">Our Achievements</h2>
+			</div>
+			<div class="col-md-4 mb-4 my-3">
+				<div class="achievement-box">
+					<div class="achievement-icon">
+						<i class="fa-solid fa-building fa-3x text-primary mb-3"></i>
+					</div>
+					<h3 class="achievement-number">500+</h3>
+					<p class="achievement-text">Partner Companies</p>
+				</div>
+			</div>
+			<div class="col-md-4 mb-4 my-3">
+				<div class="achievement-box">
+					<div class="achievement-icon">
+						<i class="fa-solid fa-user-graduate fa-3x text-primary mb-3"></i>
+					</div>
+					<h3 class="achievement-number">95%</h3>
+					<p class="achievement-text">Placement Rate</p>
+				</div>
+			</div>
+			<div class="col-md-4 mb-4 my-3">
+				<div class="achievement-box">
+					<div class="achievement-icon">
+						<i class="fa-solid fa-handshake fa-3x text-primary mb-3"></i>
+					</div>
+					<h3 class="achievement-number">10,000+</h3>
+					<p class="achievement-text">Students Placed</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

@@ -1,0 +1,167 @@
+/*======= checkout =======*/
+.checkout {
+    &__form {
+        & h5 {
+            font-family: var(--sora);
+            font-weight: 600;
+            color: #fff;
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+        }
+
+        & form {
+            & .checkout__form--input {
+                display: flex;
+                flex-direction: column;
+                justify-content: 1rem;
+                gap: 1.125rem;
+                margin-bottom: 1.875rem;
+
+                & label {}
+
+                & input {
+                    padding: 1.125rem;
+                    border: 1px solid var(--bc);
+                    border-radius: 5px;
+                    background: var(--page-bg);
+                    color: #fff;
+                    outline: none;
+                    box-shadow: none;
+                    @include animation(transition, all .3s ease-in);
+
+                    &:focus {
+                        border-color: #75f087;
+                        outline: none;
+                    }
+
+                    &::placeholder {
+                        color: var(--text-color);
+                    }
+
+                }
+
+                & .nice-select {
+                    border: 1px solid var(--bc);
+                    padding: 1.8rem 1.125rem;
+                    line-height: 0;
+                    background: var(--page-bg);
+                    border-radius: 5px;
+
+                    & .list {
+                        width: 100%;
+                        background: var(--page-bg);
+                    }
+
+                    & .option:hover,
+                    & .option.focus,
+                    & .option.selected.focus {
+                        background: var(--body-bg);
+                        color: #fff;
+                    }
+                    &.open{
+                        border-color: #75f087;
+                    }
+                }
+            }
+        }
+    }
+
+    &__order {
+        @include responsive($md){
+            margin-top: 1.25rem;
+        }
+        & .title {
+            font-family: var(--sora);
+            font-weight: 600;
+            color: #fff;
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+        }
+
+        &--list {
+            &--item {
+                border-bottom: 1px solid var(--bc);
+
+                & .item {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 1.125rem;
+
+                    & .price {
+                        font-family: var(--sora);
+                        font-weight: 600;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+
+        &--subtotal {
+            margin-top: 1.125rem;
+
+            & .item {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 1.125rem;
+
+                & .price {
+                    font-family: var(--sora);
+                    font-weight: 600;
+                    color: #fff;
+                }
+            }
+        }
+
+        &--paymentmethod {
+            display: flex;
+            margin-top: 1.875rem;
+            margin-bottom: 1.875rem;
+            gap: .875rem;
+
+            & .method {
+                flex: 1;
+                border: 0;
+                font-size: 5rem;
+                line-height: .888;
+                border-radius: 10px;
+                background: #fff;
+                height: 3.75rem;
+                width: 100%;
+                position: relative;
+                overflow: hidden;
+                @include responsive($md){
+                    height: 5.625rem;
+                }
+                & img{
+                    position: absolute;
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                    left: 0;
+                    top: 0
+                }
+
+            }
+        }
+        &--btn{
+            margin-top: 1.875rem;
+            & .order-btn{
+                font-family: var(--sora);
+                font-weight: 600;
+                color: var(--body-bg);
+                background: #75f087;
+                border: 1px solid transparent;
+                padding: 1.125rem;
+                width: 100%;
+                border-radius: 5px;
+                @include animation(transition, all .3s ease-in);
+                &:hover{
+                    color: #fff;
+                    border: 1px solid #75f087;
+                    background: var(--body-bg);
+                }
+            }
+        }
+    }
+
+}

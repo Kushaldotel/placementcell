@@ -1,0 +1,16 @@
+/*========= page template css ==========*/
+.page-template .footer-credit--img{
+    background-color: var(--page-bg);
+}
+@import 'breadcrumb';
+@import 'career';
+@import 'cart';
+@import 'checkout';
+@import 'contact';
+@import 'error';
+@import 'faq';
+@import 'login-signup';
+@import 'pricing';
+@import 'product';
+@import 'sidebar';
+@import 'pagination';

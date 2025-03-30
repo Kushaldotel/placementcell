@@ -1,0 +1,51 @@
+@mixin box-shadow($x: 0, $y: 0, $blur: 5px, $color: rgba(0, 0, 0, 0.2)) {
+    box-shadow: $x $y $blur $color;
+}
+// @include box-shadow(2px, 2px, 10px, rgba(0, 0, 0, 0.5));
+
+
+// for text gradient generator
+@mixin text-gradient($start-color, $end-color) {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to right, $start-color, $end-color);
+}
+//  @include text-gradient(#FF5733, #3498DB);
+
+
+// for css prefix
+@mixin animation($property, $values...) {
+    @each $value in $values {
+      -webkit-#{$property}: $value;
+      -moz-#{$property}: $value;
+      -ms-#{$property}: $value;
+      -o-#{$property}: $value;
+      #{$property}: $value;
+    }
+}
+
+// for css prefix
+@mixin prefix($property, $values...) {
+  @each $value in $values {
+    -webkit-#{$property}: $value;
+    -ms-#{$property}: $value;
+    #{$property}: $value;
+  }
+}
+  
+// responsive breakpoint
+
+$xxl: "screen and (min-width: 1400px) and (max-width: 1600px)";
+$xl: "screen and (max-width: 1400px)";
+$lg: "screen and (max-width: 1200px)";
+$md: "screen and (max-width: 992px)";
+$sm: "screen and (max-width: 768px)";
+$xs: "screen and (max-width: 576px)";
+$xss: "screen and (max-width: 400px)";
+
+@mixin responsive($query) {
+  @media #{$query} {
+    @content;
+  }
+}

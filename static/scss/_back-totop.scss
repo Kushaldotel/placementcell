@@ -1,0 +1,77 @@
+/*========= back to top ======== */
+.scroll {
+  cursor: pointer;
+  display: block;
+  border-radius: 3.125rem;
+  box-shadow: inset 0 0 0 2px var(--bc);
+  z-index: 999999;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(15px);
+  position: fixed;
+  right: 1.526rem;
+  bottom: 2.8175rem;
+  height: 3.125rem;
+  width: 3.125rem;
+  @include animation(transition, all .3s ease-in);
+
+  &:after {
+    position: absolute;
+    font-family: "Font Awesome 6 Pro";
+    content: "\f062";
+    text-align: center;
+    line-height: 3.125rem;
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: #fff;
+    left: 0;
+    top: 0;
+    height: 3.125rem;
+    width: 3.125rem;
+    cursor: pointer;
+    display: block;
+    z-index: 1;
+    @include animation(transition, all .3s ease-in);
+  }
+
+  & svg path {
+    fill: none;
+  }
+
+  &__circle {
+    & path {
+      stroke: var(--btn-bg);
+      stroke-width: 4px;
+      box-sizing: border-box;
+      @include animation(transition, all .3s ease-in);
+    }
+  }
+
+  &.active-scroll {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    z-index: 9999;
+    background: var(--body-bg);
+  }
+}
+
+.style-two{
+  & .scroll{
+    &__circle {
+      & path {
+        stroke: var(--style-two-color);
+        
+      }
+    }
+  }
+}
+.style-three{
+  & .scroll{
+    &__circle {
+      & path {
+        stroke: #D1099F;
+      }
+    }
+  }
+}

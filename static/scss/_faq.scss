@@ -1,0 +1,211 @@
+/*======== Faq =======*/
+.faq {
+    & .section {
+        margin-bottom: 5rem;
+    }
+
+    &__image {
+        position: relative;
+        min-height: 27.5rem;
+        max-width: 23.125rem;
+        border-radius: 1.25rem;
+
+        // margin: 0 auto;
+        @include responsive($md) {
+            margin: 0 auto 5rem auto;
+        }
+
+        &:before {
+            height: 102%;
+            width: 102%;
+            background: var(--Linear-01);
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            border-radius: 1.25rem;
+            @include prefix(transform, rotate(10deg));
+            @include animation(transition, all .3s ease-in);
+        }
+
+        &:hover {
+            &:before {
+                @include prefix(transform, rotate(0));
+                left: -3.5px;
+                top: -4.5px;
+            }
+        }
+
+        &-img {
+            & img {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                border-radius: 1.25rem;
+
+            }
+        }
+
+    }
+
+    &__accordion {
+        & .accordion {
+            --bs-accordion-border-width: 0;
+        }
+
+        color: #fff;
+
+        & .accordion-item {
+            padding: 1.25rem;
+            background-clip: padding-box;
+            box-sizing: border-box;
+            position: relative;
+            border: solid 2px transparent;
+            border-radius: 0.625rem;
+            width: 100%;
+            background-color: var(--body-bg);
+
+            &:not(:last-child) {
+                margin-bottom: 1.25rem;
+            }
+
+            &:before {
+                content: "";
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                z-index: -1;
+                margin: -2px;
+                border-radius: inherit;
+                background: var(--Linear-01);
+            }
+
+            & .accordion-text {
+                color: #fff;
+                max-width: 90%;
+            }
+
+        }
+
+        & .accordion-header {
+            background-color: transparent;
+
+            & .accordion-button {
+                cursor: pointer;
+                padding: 0;
+                background-color: var(--body-bg);
+                color: #fff;
+                margin-bottom: 1.25rem;
+
+                & h6 {
+                    margin: 0;
+                    font-size: 1rem;
+                    font-weight: 600;
+                    font-family: var(--sora);
+                }
+
+                &:after {
+                    content: '\f178';
+                    font-family: var(--font-awesome);
+                    background-image: none;
+                    @include animation(transform, rotate(-35deg));
+
+                }
+
+                &:not(.collapsed) {
+                    box-shadow: 0;
+                }
+
+                &:not(.collapsed)::after {
+                    @include prefix(transform, rotate(35deg));
+                }
+
+                &.collapsed {
+                    margin-bottom: 0;
+                }
+
+            }
+        }
+
+        & .accordion-collapse {}
+
+    }
+}
+
+.style-two {
+    & .faq {
+        &__info {
+            position: relative;
+            h3 {
+                font-size: 30px;
+                font-weight: 600;
+                color: #fff;
+                margin-bottom: 15px;
+                display: inline-block;
+            }
+            .arrow-line{
+                position: absolute;
+                right: 0;
+                top: 50%;
+                @include animation(animation, left 5s infinite alternate);
+                @include responsive($md){
+                    display: none;
+                }
+            }
+            @include responsive($md){
+                margin-bottom: 50px;
+            }
+        }
+
+        &__accordion {
+            .accordion-item {
+                background: transparent;
+                padding: 28px 30px;
+                border-radius: 10px;
+                overflow: hidden;
+                border: 1px solid var(--style-two-color);
+
+                .accordion-text {
+                    max-width: 100%;
+                    margin-top: 15px;
+                    display: inline-block;
+                }
+                &.active{
+                    background: var(--style-two-color);
+                }
+            }
+
+            .accordion-header {
+                background: transparent;
+                @include animation(transition, all .3s ease-in);
+                .accordion-button {
+                    background: transparent;
+                    &::after{
+                        content: '\2b';
+                        transform: rotate(0deg);
+                        position: relative;
+                        top: -5px;
+                    }
+                }
+            }
+
+            .accordion-collapse.collapse.show {
+                position: relative;
+
+                &:before {
+                    position: absolute;
+                    top: 0;
+                    left: -5%;
+                    content: '';
+                    height: 1px;
+                    width: 110%;
+                    background: #fff;
+                }
+            }
+        }
+
+    }
+}

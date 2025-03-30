@@ -1,0 +1,71 @@
+/*===== our work =======*/
+.our-work {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    overflow: hidden;
+
+    &__wrapper {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        gap: 2rem;
+        @include animation(animation, Marque 50s linear infinite);
+        & .our-work__content{
+            display: flex;
+            gap: 2rem;
+        }
+        & .single-work-item {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            gap: 2rem;
+
+            &:nth-child(2n) {
+                & .title:nth-child(1) {
+                    background: var(--Linear-01, linear-gradient(42deg, #E9F950 -1.07%, #55F4C4 -1.06%, #BAE906 104.1%));
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+            }
+
+            & .title {
+                list-style-type: none;
+                position: relative;
+                font-size: 4rem;
+                font-weight: 700;
+                font-family: var(--sora);
+                color: #fff;
+                line-height: 3.5rem;
+                text-transform: uppercase;
+
+            }
+
+            & .start {
+                font-size: 4rem;
+                font-weight: 700;
+                margin-top: 1.215rem;
+                white-space: nowrap;
+                line-height: 0;
+            }
+
+        }
+    }
+}

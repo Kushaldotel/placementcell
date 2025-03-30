@@ -1,0 +1,290 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Placement Cell - Connecting Students with Opportunities">
+    <meta name="keywords" content="Placement, Jobs, Career, Students, Recruitment, Internship">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Placement Cell">
+    <title>{% block title %}Placement Cell{% endblock %}</title>
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="{% static 'img/logo/favicon.ico' %}">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- slick slider css -->
+    <link rel="stylesheet" href="{% static 'css/slick-theme.css' %}">
+    <link rel="stylesheet" href="{% static 'css/slick.css' %}">
+    <!-- animate css -->
+    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
+    <!-- Nice select css -->
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+    <!-- fontawesome css -->
+    <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
+    <!-- normalize css -->
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <!-- modal video css -->
+    <link rel="stylesheet" href="{% static 'css/modal-video.min.css' %}">
+    <!-- Sal Animation css -->
+    <link rel="stylesheet" href="{% static 'css/sal.css' %}">
+    <!-- swiper slider css -->
+    <link rel="stylesheet" href="{% static 'css/swiper.min.css' %}">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="{% static 'css/meanmenu.min.css' %}">
+    <!-- style css -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_css %}{% endblock %}
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="{% block body_class %}page-template{% endblock %}">
+    <!-- preloader -->
+    <div id="preloader" class="inso-preloader">
+        <span class="loader"></span>
+    </div>
+    <!-- preloader end -->
+
+    <!-- offcanvase menu -->
+    <div class="o-hidden">
+        <div class="offcanvase">
+            <div class="offcanvase__menu">
+                <div class="offcanvase__menu--content">
+                    <div class="offcanvase__menu--top mb-30 d-flex justify-content-between">
+                        <div class="offcanvase__menu--logo">
+                            <div class="offcanvase__logo">
+                                <a href="{% url 'index' %}">
+                                    <img src="{% static 'img/logo/logo.svg' %}" alt="Placement Cell">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="offcanvase__menu--close-icon">
+                            <div class="close-menu pointer"><i class="fa-sharp fa-regular fa-xmark"></i></div>
+                        </div>
+                    </div>
+                    <div class="offcanvase-menu o-hidden mb-30">
+                        <ul>
+                            <li><a href="{% url 'index' %}">Home</a></li>
+                            <li><a href="{% url 'about' %}">About Us</a></li>
+                            <li><a href="{% url 'career' %}">Career</a></li>
+                            <li><a href="{% url 'contact' %}">Contact</a></li>
+                            <li><a href="{% url 'atsreport' %}">ATS Report</a></li>
+                        </ul>
+                    </div>
+                    <div class="offcanvase__button mb-30">
+                        {% if user.is_authenticated %}
+                            <a class="login" href="{% url 'logout' %}">Logout</a>
+                        {% else %}
+                            <a class="login" href="{% url 'login' %}">Login</a>
+                        {% endif %}
+                    </div>
+                    <div class="offcanvase__menu--contact center">
+                        <h4 class="offcanvase__menu--contact-title mb-20">Contact Us</h4>
+                        <div class="offcanvase__menu--contact-text">
+                            <ul>
+                                <li><a href="tel:+1234567890">+123 456 7890</a></li>
+                                <li><a href="mailto:contact@placementcell.org">contact@placementcell.org</a></li>
+                            </ul>
+                            <p>University Campus, Main Building</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- offcanvase menu end -->
+
+    <!-- header -->
+    <header class="header">
+        <div class="header__main">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-6">
+                        <div class="header__logo">
+                            <a href="{% url 'index' %}">
+                                <img src="{% static 'img/logo/logo.svg' %}" alt="logo">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xl-7 col-lg-7 d-none d-lg-block">
+                        <div class="header__menu">
+                            <nav class="header__nav">
+                                <ul>
+                                    <li><a href="{% url 'index' %}">Home</a></li>
+                                    <li><a href="{% url 'about' %}">About Us</a></li>
+                                    <li><a href="{% url 'career' %}">Career</a></li>
+                                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                                    <li><a href="{% url 'atsreport' %}">ATS Report</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 my">
+                        <div class="header__right">
+                            <div class="offcanvase__button mb-30 my-4">
+                                {% if user.is_authenticated %}
+                                    <a class="login" href="{% url 'logout' %}">Logout</a>
+                                {% else %}
+                                    <a class="login" href="{% url 'login' %}">Login</a>
+                                {% endif %}
+                            </div>
+                            <div class="header__right--hamburger">
+                                <div class="hamburger">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- header end -->
+
+    <!-- Add this right after the header section and before the main content -->
+    {% if messages %}
+    <div class="container mt-3">
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- footer -->
+	<footer class="footer pt-100 pb-70">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="footer__widget">
+						<h5>Contact Us</h5>
+						<div class="footer__widget--contact">
+							<ul>
+								<li><i class="fa-sharp fa-solid fa-phone"></i><a
+										href="tel:+8801755202096">+9779841843854</a></li>
+								<li><i class="fa-regular fa-envelope"></i><a
+										href="mailto:contact@insomniacafe.org">contact@placement.lbef.org</a></li>
+							</ul>
+							<div class="footer__social">
+								<a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+								<a href="#"><i class="fa-brands fa-twitter"></i></a>
+								<a href="#"><i class="fa-brands fa-instagram"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-2 col-md-6 col-sm-7">
+					<div class="footer__widget">
+						<h5>Links</h5>
+						<div class="footer__widget--link">
+							<ul>
+                                <li><a href="{% url 'about' %}">About Us</a></li>
+                                <li><a href="{% url 'career' %}">Career</a></li>
+                                <li><a href="{% url 'contact' %}">Contact</a></li>
+                                <li><a href="{% url 'atsreport' %}">ATS Report</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-2 col-md-6 col-sm-6">
+					<div class="footer__widget">
+						<h5>Resources</h5>
+						<div class="footer__widget--resource">
+							<ul>
+								<li><a href="{% url "about" %}">Python Programming</a></li>
+								<li><a href="{% url "career" %}">Resume Writing</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-5 col-md-6 col-sm-6">
+					<div class="footer__widget">
+						<h5>Newsletter</h5>
+						<div class="footer__widget--newsletter">
+							<p>If your business hosts events or exhibitions,
+								creative services can assist with event
+								planning, booth design.
+							</p>
+							<form action="#" class="newsletter-box">
+								<input type="email" placeholder="Email Address">
+								<button type="submit">Subscribe</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+    <!-- footer end -->
+
+    <!-- footer credit -->
+    <div class="footer-credit">
+        <div class="container">
+            <div class="footer-credit--img">
+                <a href="{% url 'index' %}"><img src="{% static 'img/logo/footer-logo.svg' %}" alt="footer logo"></a>
+            </div>
+            <div class="footer-credit__wrapper">
+                <div class="copy-right">
+                    All Rights Reserved <a href="#">Placement Cell</a> © {% now "Y" %}
+                </div>
+                <div class="footer-links">
+                    <ul>
+                        <li><a href="#">Terms of use</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer credit end -->
+
+    <!-- back to top -->
+    <div class="scroll active-scroll">
+        <svg class="scroll__circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
+                style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919px, 307.919px; stroke-dashoffset: 244.073px;">
+            </path>
+        </svg>
+    </div>
+    <!-- back to top end -->
+
+    <!-- all jquery plugins here -->
+    <!-- jquery -->
+    <script src="{% static 'js/Jquery-3.7.0.js' %}"></script>
+    <!-- bootstrap- jquery included -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- slick slider- jquery included -->
+    <script src="{% static 'js/slick.min.js' %}"></script>
+    <!-- niceselect - jquery included -->
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+    <!-- imageloaded pkgd - jquery included -->
+    <script src="{% static 'js/imagesloaded.pkgd.min.js' %}"></script>
+    <!-- appear - jquery included -->
+    <script src="{% static 'js/appear.min.js' %}"></script>
+    <!-- modal video - jquery included -->
+    <script src="{% static 'js/jquery-modal-video.min.js' %}"></script>
+    <!-- meamenu - jquery inclued -->
+    <script src="{% static 'js/jquery.meanmenu.min.js' %}"></script>
+    <!-- Sal - jquery included -->
+    <script src="{% static 'js/sal.js' %}"></script>
+    <!-- swiper - jquery included -->
+    <script src="{% static 'js/swiper.min.js' %}"></script>
+    <!-- main js -->
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

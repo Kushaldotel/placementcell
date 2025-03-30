@@ -1,0 +1,645 @@
+{% extends 'boiler_plate.html' %}
+{% load static %}
+
+{% block title %}ATS Resume Analysis - Placement Cell{% endblock %}
+
+{% block extra_css %}
+<style>
+    .ats-section {
+        padding: 80px 0;
+        background-color: rgba(0,0,0,0.03);
+    }
+
+    .section-intro {
+        margin-bottom: 50px;
+    }
+
+    .section-intro h2 {
+        font-size: 32px;
+        margin-bottom: 20px;
+        color: white;
+        font-weight: 700;
+    }
+
+    .section-intro p {
+        color: #666;
+        line-height: 1.8;
+        font-size: 18px;
+    }
+
+    .ats-upload-card, .ats-tips-card {
+        padding: 30px;
+        background-color: rgba(255, 255, 255, 0.98);
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+        height: 100%;
+    }
+
+    .ats-upload-card h3, .ats-tips-card h3 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #333;
+        font-weight: 600;
+    }
+
+    .ats-upload-card p, .ats-tips-card p {
+        color: #666;
+        line-height: 1.7;
+        margin-bottom: 25px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 10px;
+        color: #555;
+        font-weight: 500;
+    }
+
+    .form-control {
+        padding: 12px 15px;
+        border-radius: 6px;
+        border: 1px solid rgba(0,0,0,0.1);
+        background-color: rgba(0,0,0,0.03);
+        width: 100%;
+    }
+
+    .ats-tips-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .ats-tips-list li {
+        display: flex;
+        margin-bottom: 25px;
+    }
+
+    .tip-icon {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(0,123,255,0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        color: #007bff;
+        font-size: 16px;
+    }
+
+    .tip-content h5 {
+        font-size: 18px;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    .tip-content p {
+        margin-bottom: 0;
+        color: #666;
+    }
+
+    /* Modal Styles */
+    .ats-result-modal .modal-content {
+        border-radius: 12px;
+        border: none;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .ats-result-modal .modal-header {
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        padding: 20px 30px;
+    }
+
+    .ats-result-modal .modal-title {
+        font-weight: 700;
+        color: #333;
+    }
+
+    .ats-result-modal .modal-body {
+        padding: 30px;
+    }
+
+    .ats-score-section {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+    }
+
+    .score-card {
+        flex: 1;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        margin: 0 10px;
+    }
+
+    .current-score {
+        background-color: rgba(0,0,0,0.03);
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .expected-score {
+        background-color: rgba(40,167,69,0.1);
+        border: 1px solid rgba(40,167,69,0.2);
+    }
+
+    .score-value {
+        font-size: 48px;
+        font-weight: 700;
+        margin: 10px 0;
+        color: #333;
+    }
+
+    .expected-score .score-value {
+        color: #28a745;
+    }
+
+    .score-label {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: #555;
+    }
+
+    .score-description {
+        font-size: 14px;
+        color: #777;
+    }
+
+    .feedback-section {
+        margin-top: 20px;
+    }
+
+    .feedback-section h4 {
+        font-size: 20px;
+        margin-bottom: 15px;
+        color: #333;
+        font-weight: 600;
+    }
+
+    .feedback-content {
+        background-color: rgba(0,0,0,0.03);
+        border-radius: 8px;
+        padding: 20px;
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    .feedback-content h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .feedback-content h3 {
+        font-size: 20px;
+        margin: 20px 0 10px;
+        color: #444;
+    }
+
+    .feedback-content strong {
+        color: #333;
+    }
+
+    .feedback-content ul {
+        padding-left: 20px;
+        margin-bottom: 20px;
+    }
+
+    .feedback-content li {
+        margin-bottom: 10px;
+        color: #555;
+    }
+
+    .loading-spinner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+    }
+
+    .spinner-border {
+        width: 3rem;
+        height: 3rem;
+        margin-bottom: 20px;
+    }
+
+    /* Job description preview */
+    .job-description-preview {
+        background-color: rgba(0,0,0,0.02);
+        border-radius: 8px;
+        padding: 15px;
+        margin-top: 10px;
+        max-height: 150px;
+        overflow-y: auto;
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .job-description-preview h5 {
+        font-size: 16px;
+        margin-bottom: 10px;
+        color: #555;
+    }
+
+    /* Template buttons */
+    .template-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .template-btn {
+        padding: 8px 15px;
+        border-radius: 20px;
+        background-color: rgba(0,123,255,0.1);
+        color: #007bff;
+        border: 1px solid rgba(0,123,255,0.2);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 14px;
+    }
+
+    .template-btn:hover {
+        background-color: rgba(0,123,255,0.2);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>ATS Resume Analysis</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ats-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-intro text-center">
+                    <h2>Optimize Your Resume for ATS</h2>
+                    <p>Upload your resume and a job description to get personalized feedback on how well your resume matches the job requirements. Our AI-powered ATS analyzer will help you improve your chances of getting past the Applicant Tracking Systems.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-7 mb-4 mb-lg-0">
+                <div class="ats-upload-card">
+                    <h3>Analyze Your Resume</h3>
+                    <p>Upload your resume and paste a job description to get a detailed analysis of how well your resume matches the job requirements.</p>
+
+                    <form id="resumeForm">
+                        <div class="form-group">
+                            <label for="resumeFile">Upload Resume (PDF or DOCX)</label>
+                            <input type="file" class="form-control" id="resumeFile" accept=".pdf,.docx" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="jobDescription">Job Description</label>
+                            <div class="template-buttons">
+                                <button type="button" class="template-btn" data-template="software-developer">Software Developer</button>
+                                <button type="button" class="template-btn" data-template="data-analyst">Data Analyst</button>
+                                <button type="button" class="template-btn" data-template="marketing">Marketing</button>
+                                <button type="button" class="template-btn" data-template="project-manager">Project Manager</button>
+                            </div>
+                            <textarea class="form-control" id="jobDescription" rows="6" placeholder="Paste the job description here..." required></textarea>
+                            <div id="jobPreview" class="job-description-preview mt-2" style="display: none;">
+                                <h5>Job Description Preview:</h5>
+                                <div id="jobPreviewContent"></div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Analyze Resume</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="ats-tips-card">
+                    <h3>ATS Optimization Tips</h3>
+                    <p>Here are some tips to help you optimize your resume for Applicant Tracking Systems:</p>
+
+                    <ul class="ats-tips-list">
+                        <li>
+                            <div class="tip-icon">
+                                <i class="fa-solid fa-bullseye"></i>
+                            </div>
+                            <div class="tip-content">
+                                <h5>Use Relevant Keywords</h5>
+                                <p>Include keywords from the job description that match your skills and experience.</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="tip-icon">
+                                <i class="fa-solid fa-file-lines"></i>
+                            </div>
+                            <div class="tip-content">
+                                <h5>Simple Formatting</h5>
+                                <p>Use standard fonts, simple formatting, and avoid tables, headers, footers, and images.</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="tip-icon">
+                                <i class="fa-solid fa-list-check"></i>
+                            </div>
+                            <div class="tip-content">
+                                <h5>Proper File Format</h5>
+                                <p>Submit your resume as a .docx or .pdf file for better compatibility with ATS systems.</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="tip-icon">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+                            <div class="tip-content">
+                                <h5>Quantify Achievements</h5>
+                                <p>Use numbers and percentages to quantify your achievements and demonstrate your impact.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ATS Result Modal -->
+<div class="modal fade ats-result-modal" id="atsResultModal" tabindex="-1" aria-labelledby="atsResultModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="atsResultModalLabel">ATS Resume Analysis Results</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Loading Spinner -->
+                <div id="loadingSpinner" class="loading-spinner">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p>Analyzing your resume... This may take a moment.</p>
+                </div>
+
+                <!-- Analysis Results -->
+                <div id="analysisResults" style="display: none;">
+                    <div class="ats-score-section">
+                        <div class="score-card current-score">
+                            <div class="score-label">Current ATS Score</div>
+                            <div class="score-value" id="currentScore">--</div>
+                            <div class="score-description">How your resume currently performs</div>
+                        </div>
+
+                        <div class="score-card expected-score">
+                            <div class="score-label">Expected Score After Improvements</div>
+                            <div class="score-value" id="expectedScore">--</div>
+                            <div class="score-description">Potential score after implementing suggestions</div>
+                        </div>
+                    </div>
+
+                    <div class="feedback-section">
+                        <h4>Detailed Feedback</h4>
+                        <div class="feedback-content" id="feedbackContent">
+                            <!-- Feedback will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="downloadFeedback">Download Feedback</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const resumeForm = document.getElementById('resumeForm');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const analysisResults = document.getElementById('analysisResults');
+        const currentScoreElement = document.getElementById('currentScore');
+        const expectedScoreElement = document.getElementById('expectedScore');
+        const feedbackContentElement = document.getElementById('feedbackContent');
+        const downloadButton = document.getElementById('downloadFeedback');
+        const jobDescriptionField = document.getElementById('jobDescription');
+        const jobPreview = document.getElementById('jobPreview');
+        const jobPreviewContent = document.getElementById('jobPreviewContent');
+        const templateButtons = document.querySelectorAll('.template-btn');
+
+        let feedbackData = null;
+
+        // Job description templates
+        const jobTemplates = {
+            'software-developer': `Core Responsibilities:
+Writing and Testing Code:
+Python developers are responsible for writing, testing, and debugging Python code to create and maintain software applications.
+Server-Side Logic:
+They focus on developing the back-end or server-side logic of web applications and other software.
+Application Development:
+They develop and maintain various types of applications, including web applications, data processing tools, and potentially games or interactive media.
+Integration:
+They integrate user-facing elements (developed by front-end developers) with server-side logic and connect applications with third-party web services.
+Data Storage and Management:
+They work with different data storage solutions and mechanisms to ensure efficient and secure data handling.`,
+            'data-analyst': `Job Description: Data Analyst
+Responsibilities:
+- Collect, process, and analyze large datasets to identify patterns and trends
+- Create and maintain dashboards and reports to track key business metrics
+- Collaborate with stakeholders to understand data requirements and provide insights
+- Develop and implement data quality processes and standards
+- Perform statistical analysis and data mining to support business decisions
+
+Requirements:
+- Bachelor's degree in Statistics, Mathematics, Computer Science, or related field
+- Proficiency in SQL and experience with database systems
+- Experience with data visualization tools (Tableau, Power BI)
+- Strong analytical and problem-solving skills
+- Knowledge of Python or R for data analysis`,
+            'marketing': `Job Description: Digital Marketing Specialist
+Responsibilities:
+- Develop and implement digital marketing strategies across multiple channels
+- Manage social media accounts and create engaging content
+- Plan and execute email marketing campaigns
+- Monitor and analyze campaign performance and website traffic
+- Optimize marketing campaigns based on data insights
+- Stay updated on digital marketing trends and best practices
+
+Requirements:
+- Bachelor's degree in Marketing, Communications, or related field
+- 2+ years of experience in digital marketing
+- Proficiency with social media platforms and analytics tools
+- Experience with email marketing platforms and SEO/SEM
+- Strong analytical skills and attention to detail
+- Excellent written and verbal communication skills`,
+            'project-manager': `Job Description: Project Manager
+Responsibilities:
+- Lead project planning, execution, monitoring, and closure
+- Define project scope, goals, and deliverables with stakeholders
+- Develop detailed project plans and schedules
+- Manage project resources, budget, and risks
+- Coordinate team members and ensure timely completion of tasks
+- Communicate project status to stakeholders and leadership
+
+Requirements:
+- Bachelor's degree in Business, Engineering, or related field
+- 3+ years of project management experience
+- PMP certification preferred
+- Strong leadership and communication skills
+- Experience with project management software
+- Ability to manage multiple projects simultaneously`
+        };
+
+        // Template button click handlers
+        templateButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const templateKey = this.getAttribute('data-template');
+                jobDescriptionField.value = jobTemplates[templateKey];
+
+                // Show preview
+                jobPreviewContent.textContent = jobTemplates[templateKey].substring(0, 150) + '...';
+                jobPreview.style.display = 'block';
+            });
+        });
+
+        // Job description input handler
+        jobDescriptionField.addEventListener('input', function() {
+            if (this.value.length > 0) {
+                jobPreviewContent.textContent = this.value.substring(0, 150) + (this.value.length > 150 ? '...' : '');
+                jobPreview.style.display = 'block';
+            } else {
+                jobPreview.style.display = 'none';
+            }
+        });
+
+        resumeForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const resumeFile = document.getElementById('resumeFile').files[0];
+            const jobDescription = document.getElementById('jobDescription').value;
+
+            if (!resumeFile) {
+                alert('Please upload a resume file.');
+                return;
+            }
+
+            if (!jobDescription) {
+                alert('Please enter a job description.');
+                return;
+            }
+
+            // Show modal with loading spinner
+            const modal = new bootstrap.Modal(document.getElementById('atsResultModal'));
+            modal.show();
+
+            loadingSpinner.style.display = 'flex';
+            analysisResults.style.display = 'none';
+
+            // Create form data
+            const formData = new FormData();
+            formData.append('resume', resumeFile);
+            formData.append('job_description', jobDescription);
+
+            // Send request to the server
+            fetch('{% url "resume-feedback" %}', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                feedbackData = data;
+
+                // Use the direct score values from the response
+                const currentScore = data.current_score || '--';
+                const expectedScore = data.expected_score || '--';
+
+                // Update the UI
+                currentScoreElement.textContent = currentScore;
+                expectedScoreElement.textContent = expectedScore;
+
+                // Convert markdown to HTML for better display
+                const formattedFeedback = formatMarkdown(data.feedback);
+                feedbackContentElement.innerHTML = formattedFeedback;
+
+                // Hide spinner, show results
+                loadingSpinner.style.display = 'none';
+                analysisResults.style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error analyzing your resume. Please try again.');
+                modal.hide();
+            });
+        });
+
+        // Download feedback as text file
+        downloadButton.addEventListener('click', function() {
+            if (!feedbackData) return;
+
+            const blob = new Blob([feedbackData.feedback], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'ats_resume_feedback.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        // Modified markdown to HTML converter to remove conclusion section
+        function formatMarkdown(markdown) {
+            // Remove the conclusion section if present
+            let processedMarkdown = markdown;
+            const conclusionIndex = processedMarkdown.indexOf('Conclusion:');
+
+            if (conclusionIndex !== -1) {
+                // Find the end of the conclusion section (next section or end of text)
+                processedMarkdown = processedMarkdown.substring(0, conclusionIndex);
+            }
+
+            let html = processedMarkdown
+                // Headers
+                .replace(/^## (.*$)/gm, '<h2>$1</h2>')
+                .replace(/^### (.*$)/gm, '<h3>$1</h3>')
+
+                // Bold
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+
+                // Lists
+                .replace(/^\* (.*$)/gm, '<li>$1</li>')
+                .replace(/^(\d+)\. (.*$)/gm, '<li>$2</li>')
+                .replace(/(<li>.*<\/li>)/gms, '<ul>$1</ul>');
+
+            // Fix nested lists
+            html = html.replace(/<\/ul>\s*<ul>/g, '');
+
+            // Add line breaks
+            html = html.replace(/\n\n/g, '<br><br>');
+
+            return html;
+        }
+    });
+</script>
+{% endblock %}

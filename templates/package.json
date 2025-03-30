@@ -1,0 +1,14 @@
+{
+  "name": "Insoand - Startup and Technology Website HTML5 Template",
+  "version": "1.0.1",
+  "description": "Insoand - Startup and Technology Website HTML5 Template",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node-sass assets/scss/main.scss style.css -w"
+  },
+  "author": "Insomniacafe.org",
+  "license": "ISC",
+  "devDependencies": {
+    "node-sass": "^9.0.0"
+  }
+}
