@@ -5,66 +5,128 @@
 
 {% block extra_css %}
 <style>
-    body {
-        background-color: #0f1123;
-        color: #fff;
-    }
-
     .dashboard-section {
         padding: 50px 0;
-        background-color: #0f1123;
+        background-color: rgba(0,0,0,0.03);
         min-height: 85vh;
     }
 
     .dashboard-title {
         font-size: 2.5rem;
         font-weight: 700;
-        color: #fff;
+        color: white;
         margin-bottom: 40px;
         text-align: left;
     }
 
     .stats-card {
-        background: #fff;
-        border-radius: 15px;
-        padding: 25px;
+        background-color: rgba(0,0,0,0.03);
+        border-radius: 25px;
+        padding: 30px;
         margin-bottom: 30px;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         text-align: center;
         min-height: 200px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Animated border effect for all cards */
+    .stats-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 25px;
+        padding: 2px;
+        background: linear-gradient(
+            90deg,
+            #68F2A0,
+            #4CAF50,
+            #2196F3,
+            #68F2A0
+        );
+        -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        animation: borderAnimation 4s linear infinite;
+        background-size: 300% 100%;
+    }
+
+    @keyframes borderAnimation {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
     }
 
     .stats-number {
         font-size: 3.8rem;
         font-weight: 700;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
+        position: relative;
+        z-index: 1;
+        color: #68F2A0;
+        text-shadow: 0 0 10px rgba(104, 242, 160, 0.3);
     }
 
-    .stats-card:nth-child(1) .stats-number {
-        color: #2196F3;
+    /* Individual color styles for different cards */
+    .stats-card:first-child .stats-number {
+        color: #68F2A0;
+        text-shadow: 0 0 10px rgba(104, 242, 160, 0.3);
     }
 
     .pending-apps .stats-number {
         color: #2196F3;
+        text-shadow: 0 0 10px rgba(33, 150, 243, 0.3);
     }
 
     .accepted-apps .stats-number {
         color: #4CAF50;
+        text-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
     }
 
     .rejected-apps .stats-number {
         color: #FF5252;
+        text-shadow: 0 0 10px rgba(255, 82, 82, 0.3);
+    }
+
+    /* Add a glow effect on hover */
+    .stats-card:hover .stats-number {
+        animation: numberPulse 2s infinite;
+    }
+
+    @keyframes numberPulse {
+        0% {
+            text-shadow: 0 0 10px rgba(104, 242, 160, 0.3);
+        }
+        50% {
+            text-shadow: 0 0 20px rgba(104, 242, 160, 0.5);
+        }
+        100% {
+            text-shadow: 0 0 10px rgba(104, 242, 160, 0.3);
+        }
     }
 
     .stats-label {
-        color: #555;
-        font-size: 1.1rem;
+        color: rgba(228, 230, 213, 0.95);
+        font-size: 1.2rem;
         font-weight: 600;
         margin-bottom: 15px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .view-btn {
@@ -75,45 +137,85 @@
         width: 100%;
         transition: all 0.3s ease;
         color: #fff;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
     }
 
     .btn-primary {
-        background-color: #2196F3;
-    }
-
-    .btn-primary:hover {
-        background-color: #1976D2;
-        box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
+        background: linear-gradient(45deg, #2196F3, #64B5F6);
     }
 
     .btn-success {
-        background-color: #4CAF50;
-    }
-
-    .btn-success:hover {
-        background-color: #388E3C;
-        box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        background: linear-gradient(45deg, #4CAF50, #81C784);
     }
 
     .btn-danger {
-        background-color: #FF5252;
+        background: linear-gradient(45deg, #FF5252, #FF8A80);
     }
 
-    .btn-danger:hover {
-        background-color: #D32F2F;
-        box-shadow: 0 5px 15px rgba(255, 82, 82, 0.4);
+    .view-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent
+        );
+        transition: 0.5s;
+    }
+
+    .view-btn:hover::before {
+        left: 100%;
+    }
+
+    .view-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(104, 242, 160, 0.3);
     }
 
     .chart-container {
-        background: #fff;
-        border-radius: 15px;
-        padding: 25px;
+        background-color: rgba(0,0,0,0.03);
+        border-radius: 25px;
+        padding: 30px;
         margin-bottom: 30px;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Animated border for chart containers */
+    .chart-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 25px;
+        padding: 2px;
+        background: linear-gradient(
+            90deg,
+            #68F2A0,
+            #4CAF50,
+            #2196F3,
+            #68F2A0
+        );
+        -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        animation: borderAnimation 4s linear infinite;
+        background-size: 300% 100%;
     }
 
     .chart-title {
-        color: #333;
+        color: rgba(228, 230, 213, 0.95);
         font-size: 1.3rem;
         font-weight: 600;
         margin-bottom: 20px;
@@ -135,6 +237,12 @@
         position: relative;
         height: 350px;
         margin: 0 auto;
+        z-index: 1;
+    }
+
+    /* Update Chart.js colors to match theme */
+    canvas {
+        filter: brightness(1.2);
     }
 
     @media (max-width: 992px) {
@@ -165,6 +273,11 @@
         .chart-wrapper {
             height: 300px;
         }
+    }
+
+    /* Make chart labels more visible */
+    .chart-js-legend text {
+        fill: rgba(228, 230, 213, 0.95) !important;
     }
 </style>
 {% endblock %}

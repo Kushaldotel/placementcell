@@ -142,3 +142,11 @@ class ApplicationAdmin(ModelAdmin):
         if request.user.user_type == 'ORGANIZATION':
             return ('job_vacancy',)
         return super().get_readonly_fields(request, obj)
+
+    def has_change_permission(self, request, obj=None):
+        try:
+            if request.user.user_type == 'ORGANIZATION':
+                return True  # Allow organizations to change JobVacancy objects
+            return super().has_change_permission(request, obj)
+        except:
+            return False

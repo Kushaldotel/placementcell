@@ -4,83 +4,229 @@
 {% block title %}Career Opportunities - Placement Cell{% endblock %}
 
 {% block extra_css %}
-
 <style>
+    .career {
+        background-color: rgba(0,0,0,0.03);
+        min-height: 85vh;
+    }
 
+    .single-job {
+        background-color: rgba(0,0,0,0.03);
+        border-radius: 25px;
+        padding: 30px;
+        margin-bottom: 30px;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
 
-	.single-job {
-		padding: 30px;
-		margin-bottom: 30px;
-		border-radius: 10px;
-		background-color: rgba(255, 255, 255, 0.97);
-		border: 1px solid rgba(0,0,0,0.03);
-		transition: all 0.3s ease;
-		box-shadow: 0 3px 10px rgba(0,0,0,0.03);
-	}
+    /* Animated border effect */
+    .single-job::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 25px;
+        padding: 2px;
+        background: linear-gradient(
+            90deg,
+            #68F2A0,
+            #4CAF50,
+            #2196F3,
+            #68F2A0
+        );
+        -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        animation: borderAnimation 4s linear infinite;
+        background-size: 300% 100%;
+    }
 
-	.single-job:hover {
-		box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-		transform: translateY(-5px);
-	}
+    @keyframes borderAnimation {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
 
-	.single-job h6 {
-        color: #666;
+    .single-job:hover {
+        transform: translateY(-5px);
+    }
+
+    .single-job h6 {
+        color: #68F2A0;
         font-size: 14px;
         margin-bottom: 10px;
         text-transform: uppercase;
         letter-spacing: 1px;
+        position: relative;
+        z-index: 1;
     }
 
     .single-job h3 {
         font-size: 22px;
         margin-bottom: 15px;
         font-weight: 600;
+        color: #fff;
+        position: relative;
+        z-index: 1;
     }
 
     .single-job p {
-        color: #666;
+        color: rgba(228, 230, 213, 0.95);
         margin-bottom: 20px;
         line-height: 1.6;
+        position: relative;
+        z-index: 1;
     }
+
     .job-meta {
         display: flex;
         flex-wrap: wrap;
         gap: 15px;
         margin-bottom: 20px;
+        position: relative;
+        z-index: 1;
     }
 
     .job-meta span {
         display: inline-flex;
         align-items: center;
-        color: #666;
+        color: rgba(228, 230, 213, 0.95);
         font-size: 14px;
     }
 
     .job-meta span i {
         margin-right: 8px;
-        color: #007bff;
+        color: #68F2A0;
     }
 
-    .single-job__btn {
-        margin-top: 20px;
-    }
     .apply-btn {
         padding: 10px 25px;
-        border-radius: 5px;
-        background-color: #007bff;
+        border-radius: 30px;
+        background: linear-gradient(45deg, #68F2A0, #4CAF50);
         color: white;
         border: none;
         transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .apply-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent
+        );
+        transition: 0.5s;
+    }
+
+    .apply-btn:hover::before {
+        left: 100%;
     }
 
     .apply-btn:hover {
-        background-color: #0056b3;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(104, 242, 160, 0.3);
         color: white;
     }
 
+    /* Sidebar Styling */
+    .career__sidebar {
+        position: relative;
+        z-index: 1;
+    }
 
+    .sidebar-widget {
+        background-color: rgba(0,0,0,0.03);
+        border-radius: 25px;
+        padding: 25px;
+        margin-bottom: 30px;
+        position: relative;
+    }
+
+    .sidebar-widget::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 25px;
+        padding: 2px;
+        background: linear-gradient(
+            90deg,
+            #68F2A0,
+            #4CAF50,
+            #2196F3,
+            #68F2A0
+        );
+        -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        animation: borderAnimation 4s linear infinite;
+        background-size: 300% 100%;
+    }
+
+
+    element.style {
+    }
+    .input-group:not(.has-validation)>.dropdown-toggle:nth-last-child(n+3), .input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-control, .input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-select, .input-group:not(.has-validation)>:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating) {
+        color: white; }
+
+    .sidebar-widget h4 {
+        color: #fff;
+        margin-bottom: 20px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .form-control {
+        background-color: rgba(0,0,0,0.2);
+        border: 1px solid rgba(104, 242, 160, 0.2);
+        color: #fff;
+        border-radius: 15px;
+        padding: 12px 15px;
+        transition: all 0.3s ease;
+    }
+
+
+    .form-control:focus {
+        border-color: #68F2A0;
+        box-shadow: 0 0 15px rgba(104, 242, 160, 0.2);
+        background-color: rgba(0,0,0,0.3);
+    }
+
+    .form-control::placeholder {
+        color: rgba(228, 230, 213, 0.5);
+    }
+
+    .form-select {
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(104, 242, 160, 0.2);
+        color: rgb(46 149 240 / 75%);
+        border-radius: 15px;
+    }
+
+    .form-select:focus {
+        border-color: #68F2A0;
+        box-shadow: 0 0 15px rgba(104, 242, 160, 0.2);
+    }
 </style>
-{% endblock extra_css %}
+{% endblock %}
 {% block content %}
 <section class="page-header">
     <div class="container">
@@ -185,16 +331,21 @@
                     </div>
 
 				<!-- Job Filters -->
-				<div class="sidebar-widget mb-4 p-4 border rounded shadow-sm bg-light" style="display: flex; flex-direction: column; gap: 15px;">
-					<h4 class="text-primary" style="margin-bottom: 15px;">Filter Jobs</h4>
+				<div class="sidebar-widget mb-4" style="display: flex; flex-direction: column; gap: 15px;">
+					<h4 style="margin-bottom: 15px;">Filter Jobs</h4>
 					<form method="get" action="{% url 'career' %}">
 						{% if search_query %}
 						<input type="hidden" name="search" value="{{ search_query }}">
 						{% endif %}
 
 						<div class="mb-3" style="display: flex; flex-direction: column; gap: 5px;">
-							<label for="job_type" class="form-label fw-bold">Job Type</label>
-							<select class="form-select border-primary" name="job_type" id="job_type" style="padding: 8px; border-radius: 5px;">
+							<label for="job_type" class="form-label" style="color: rgba(228, 230, 213, 0.95);">Job Type</label>
+							<select class="form-select" name="job_type" id="job_type" style="
+								background-color: rgba(0,0,0,0.2);
+								border: 1px solid rgba(104, 242, 160, 0.2);
+								color: rgba(228, 230, 213, 0.95);
+								border-radius: 15px;
+								padding: 8px;">
 								<option value="" {% if not job_type %}selected{% endif %}>All Job Types</option>
 								{% for job_type_value, job_type_display in job_types %}
 								<option value="{{ job_type_value }}" {% if job_type == job_type_value %}selected{% endif %}>{{ job_type_display }}</option>
@@ -203,8 +354,13 @@
 						</div>
 
 						<div class="mb-3" style="display: flex; flex-direction: column; gap: 5px;">
-							<label for="location" class="form-label fw-bold">Location</label>
-							<select class="form-select border-primary" name="location" id="location" style="padding: 8px; border-radius: 5px;">
+							<label for="location" class="form-label" style="color: rgba(228, 230, 213, 0.95);">Location</label>
+							<select class="form-select" name="location" id="location" style="
+								background-color: rgba(0,0,0,0.2);
+								border: 1px solid rgba(104, 242, 160, 0.2);
+								color: rgba(228, 230, 213, 0.95);
+								border-radius: 15px;
+								padding: 8px;">
 								<option value="" {% if not location %}selected{% endif %}>All Locations</option>
 								{% for loc in locations %}
 								{% if loc %}
@@ -214,7 +370,7 @@
 							</select>
 						</div>
 
-						<button type="submit" class="btn btn-primary w-100 fw-bold shadow-sm" style="padding: 10px; border-radius: 5px;">Apply Filters</button>
+						<button type="submit" class="apply-btn w-100" style="padding: 10px; border-radius: 5px;">Apply Filters</button>
 					</form>
 				</div>
 

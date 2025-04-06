@@ -137,8 +137,9 @@ def career_view(request):
     page_obj = paginator.get_page(page_number)
 
     # Get unique locations for filter dropdown
-    locations = JobVacancy.objects.filter(is_open=True).values_list('location', flat=True).distinct()
+    locations = JobVacancy.objects.filter(is_open=True).values_list('location', flat=True).distinct().order_by('location')
 
+    # import pdb; pdb.set_trace()
     context = {
         'page_obj': page_obj,
         'search_query': search_query,

@@ -29,21 +29,76 @@
 
     .ats-upload-card, .ats-tips-card {
         padding: 30px;
-        background-color: rgba(255, 255, 255, 0.98);
-        border-radius: 12px;
+        background-color: rgba(0,0,0,0.03);
+        border-radius: 25px;
+        position: relative;
         box-shadow: 0 3px 10px rgba(0,0,0,0.03);
         height: 100%;
+        overflow: hidden;
+    }
+
+    /* Animated border effect */
+    .ats-upload-card::before, .ats-tips-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 25px;
+        padding: 2px;
+        background: linear-gradient(
+            90deg,
+            #68F2A0,
+            #4CAF50,
+            #2196F3,
+            #68F2A0
+        );
+        -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        animation: borderAnimation 4s linear infinite;
+        background-size: 300% 100%;
+    }
+
+    @keyframes borderAnimation {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
     }
 
     .ats-upload-card h3, .ats-tips-card h3 {
         font-size: 24px;
         margin-bottom: 20px;
-        color: #333;
+        color: white;
         font-weight: 600;
+    }
+    .form-control[type=file]:not(:disabled):not([readonly]) {
+        border-color: #68F2A0;
+        color: rgba(228, 230, 213, 0.95);
+    }
+
+
+    textarea.form-control {
+        border-color: white;
+    }
+
+    .form-control:focus {
+
+        background-color: rgba(0,0,0,0.03);
+        color: white;
     }
 
     .ats-upload-card p, .ats-tips-card p {
-        color: #666;
+        color: white;
         line-height: 1.7;
         margin-bottom: 25px;
     }
@@ -55,16 +110,24 @@
     .form-group label {
         display: block;
         margin-bottom: 10px;
-        color: #555;
+        color: white;
         font-weight: 500;
     }
 
     .form-control {
         padding: 12px 15px;
         border-radius: 6px;
-        border: 1px solid rgba(0,0,0,0.1);
+        border: 2px solid transparent;
         background-color: rgba(0,0,0,0.03);
         width: 100%;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+        border-color: #68F2A0;
+        box-shadow: 0 0 15px rgba(104, 242, 160, 0.3);
+        transform: translateY(-2px);
     }
 
     .ats-tips-list {
@@ -81,32 +144,60 @@
     .tip-icon {
         width: 40px;
         height: 40px;
-        background-color: rgba(0,123,255,0.1);
+        background-color: rgba(104, 242, 160, 0.1);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         margin-right: 15px;
-        color: #007bff;
+        color: #68F2A0;
         font-size: 16px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .tip-icon::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+            90deg,
+            rgba(104, 242, 160, 0.2),
+            rgba(33, 150, 243, 0.2),
+            rgba(104, 242, 160, 0.2)
+        );
+        animation: iconGlow 3s linear infinite;
+        background-size: 200% 100%;
+    }
+
+    @keyframes iconGlow {
+        0% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: -100% 50%;
+        }
     }
 
     .tip-content h5 {
         font-size: 18px;
         margin-bottom: 5px;
-        color: #333;
+        color: white;
     }
 
     .tip-content p {
         margin-bottom: 0;
-        color: #666;
+        color: rgba(228, 230, 213, 0.95);
     }
 
     /* Modal Styles */
     .ats-result-modal .modal-content {
         border-radius: 12px;
         border: none;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        box-shadow: 0 10px 30px rgba(228, 214, 214, 0.69);
     }
 
     .ats-result-modal .modal-header {
@@ -137,6 +228,9 @@
         margin: 0 10px;
     }
 
+    #jobDescription::placeholder {
+        color: rgba(209, 201, 201, 0.85);
+      }
     .current-score {
         background-color: rgba(0,0,0,0.03);
         border: 1px solid rgba(0,0,0,0.05);
@@ -257,16 +351,112 @@
     .template-btn {
         padding: 8px 15px;
         border-radius: 20px;
-        background-color: rgba(0,123,255,0.1);
-        color: #007bff;
-        border: 1px solid rgba(0,123,255,0.2);
+        background: rgba(104, 242, 160, 0.1);
+        color: #68F2A0;
+        border: 1px solid rgba(104, 242, 160, 0.3);
         cursor: pointer;
         transition: all 0.3s ease;
         font-size: 14px;
+        position: relative;
+        overflow: hidden;
     }
 
     .template-btn:hover {
-        background-color: rgba(0,123,255,0.2);
+        background: rgba(104, 242, 160, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(104, 242, 160, 0.2);
+    }
+
+    .template-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(104, 242, 160, 0.2),
+            transparent
+        );
+        transition: 0.5s;
+    }
+
+    .template-btn:hover::before {
+        left: 100%;
+    }
+
+    /* Submit button animation */
+    .btn-primary {
+        background: linear-gradient(45deg, #68F2A0, #2196F3);
+        border: none;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, #2196F3, #68F2A0);
+        z-index: -1;
+        transition: 0.5s;
+        opacity: 0;
+    }
+
+    .btn-primary:hover::before {
+        opacity: 1;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(104, 242, 160, 0.4);
+    }
+
+    .template-label {
+        color: #fff;
+        font-size: 0.9rem;
+        margin-right: 10px;
+        opacity: 0.8;
+    }
+
+    .form-text {
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+        opacity: 0.8;
+    }
+
+    #jobDescription {
+        resize: vertical;
+        min-height: 120px;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Clear button for textarea */
+    .clear-description {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        background: none;
+        border: none;
+        color: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        padding: 5px;
+        display: none;
+    }
+
+    .clear-description:hover {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .form-group {
+        position: relative;
     }
 </style>
 {% endblock %}
@@ -308,12 +498,15 @@
                         <div class="form-group">
                             <label for="jobDescription">Job Description</label>
                             <div class="template-buttons">
+                                <span class="template-label">Quick Templates:</span>
                                 <button type="button" class="template-btn" data-template="software-developer">Software Developer</button>
                                 <button type="button" class="template-btn" data-template="data-analyst">Data Analyst</button>
                                 <button type="button" class="template-btn" data-template="marketing">Marketing</button>
                                 <button type="button" class="template-btn" data-template="project-manager">Project Manager</button>
                             </div>
-                            <textarea class="form-control" id="jobDescription" rows="6" placeholder="Paste the job description here..." required></textarea>
+                            <textarea class="form-control" id="jobDescription" rows="6"
+                                placeholder="Paste your job description here or use one of the templates above..." required></textarea>
+                            <small class="form-text text-light">You can either paste your own job description or use one of the templates above.</small>
                             <div id="jobPreview" class="job-description-preview mt-2" style="display: none;">
                                 <h5>Job Description Preview:</h5>
                                 <div id="jobPreviewContent"></div>
@@ -505,26 +698,38 @@ Requirements:
 - Ability to manage multiple projects simultaneously`
         };
 
-        // Template button click handlers
+        // Add this inside your DOMContentLoaded event listener
+        const clearButton = document.createElement('button');
+        clearButton.type = 'button';
+        clearButton.className = 'clear-description';
+        clearButton.innerHTML = '<i class="fa-solid fa-times"></i>';
+        clearButton.title = 'Clear description';
+
+        jobDescriptionField.parentNode.appendChild(clearButton);
+
+        // Show/hide clear button based on textarea content
+        jobDescriptionField.addEventListener('input', function() {
+            clearButton.style.display = this.value.length > 0 ? 'block' : 'none';
+        });
+
+        // Clear textarea when button is clicked
+        clearButton.addEventListener('click', function() {
+            jobDescriptionField.value = '';
+            jobPreview.style.display = 'none';
+            this.style.display = 'none';
+        });
+
+        // Update template button click handler
         templateButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const templateKey = this.getAttribute('data-template');
                 jobDescriptionField.value = jobTemplates[templateKey];
+                clearButton.style.display = 'block';
 
                 // Show preview
                 jobPreviewContent.textContent = jobTemplates[templateKey].substring(0, 150) + '...';
                 jobPreview.style.display = 'block';
             });
-        });
-
-        // Job description input handler
-        jobDescriptionField.addEventListener('input', function() {
-            if (this.value.length > 0) {
-                jobPreviewContent.textContent = this.value.substring(0, 150) + (this.value.length > 150 ? '...' : '');
-                jobPreview.style.display = 'block';
-            } else {
-                jobPreview.style.display = 'none';
-            }
         });
 
         resumeForm.addEventListener('submit', function(e) {

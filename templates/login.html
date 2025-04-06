@@ -14,37 +14,83 @@
     }
 
     .login-card {
-        background-color: #fff;
-        border-radius: 12px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        background-color: rgba(0,0,0,0.03);
+        border-radius: 25px;
         padding: 40px;
-        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+
+    /* Animated border effect */
+    .login-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 25px;
+        padding: 2px;
+        background: linear-gradient(
+            90deg,
+            #68F2A0,
+            #4CAF50,
+            #2196F3,
+            #68F2A0
+        );
+        -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        animation: borderAnimation 4s linear infinite;
+        background-size: 300% 100%;
+    }
+
+    @keyframes borderAnimation {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
     }
 
     .login-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
     }
 
     .login-header {
         margin-bottom: 30px;
+        position: relative;
+        z-index: 1;
     }
 
     .login-logo {
         max-width: 120px;
         margin-bottom: 20px;
+        filter: brightness(1.2);
     }
 
     .login-header h2 {
         font-size: 28px;
         font-weight: 700;
-        color: #333;
+        color: #fff;
         margin-bottom: 10px;
     }
 
     .login-header p {
-        color: #666;
+        color: rgba(228, 230, 213, 0.95);
         font-size: 16px;
+    }
+
+    .login-form {
+        position: relative;
+        z-index: 1;
     }
 
     .login-form .form-group {
@@ -53,45 +99,55 @@
 
     .login-form label {
         font-weight: 500;
-        color: #555;
+        color: rgba(228, 230, 213, 0.95);
         margin-bottom: 8px;
         display: block;
     }
 
     .login-form .input-group {
-        border-radius: 8px;
+        border-radius: 15px;
         overflow: hidden;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
     }
 
     .login-form .input-group-text {
-        background-color: rgba(0,0,0,0.03);
-        border: 1px solid rgba(0,0,0,0.1);
-        color: #007bff;
+        background-color: rgba(104, 242, 160, 0.1);
+        border: 1px solid rgba(104, 242, 160, 0.2);
+        color: #68F2A0;
+        padding: 12px 15px;
     }
 
     .login-form .form-control {
-        border: 1px solid rgba(0,0,0,0.1);
+        background-color: rgba(0,0,0,0.2);
+        border: 1px solid rgba(104, 242, 160, 0.2);
         padding: 12px 15px;
         height: auto;
+        color: #fff;
+        transition: all 0.3s ease;
     }
 
     .login-form .form-control:focus {
-        box-shadow: none;
-        border-color: #007bff;
+        box-shadow: 0 0 15px rgba(104, 242, 160, 0.2);
+        border-color: #68F2A0;
+        background-color: rgba(0,0,0,0.3);
+    }
+
+    .login-form .form-control::placeholder {
+        color: rgba(228, 230, 213, 0.5);
     }
 
     .forgot-password {
-        float: right;
-        color: #007bff;
+        color: #68F2A0;
         font-size: 14px;
         text-decoration: none;
-        transition: all 0.2s ease;
+        transition: all 0.3s ease;
+        position: relative;
+        display: inline-block;
     }
 
     .forgot-password:hover {
-        color: #0056b3;
-        text-decoration: underline;
+        color: #4CAF50;
+        text-shadow: 0 0 10px rgba(104, 242, 160, 0.3);
     }
 
     .btn-block {
@@ -100,17 +156,94 @@
         font-size: 16px;
         font-weight: 500;
         margin-top: 15px;
+        background: linear-gradient(45deg, #68F2A0, #4CAF50);
+        border: none;
+        border-radius: 30px;
+        color: #fff;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .btn-block::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent
+        );
+        transition: 0.5s;
+    }
+
+    .btn-block:hover::before {
+        left: 100%;
+    }
+
+    .btn-block:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(104, 242, 160, 0.3);
     }
 
     .login-footer {
         margin-top: 30px;
         padding-top: 20px;
-        border-top: 1px solid rgba(0,0,0,0.05);
+        border-top: 1px solid rgba(104, 242, 160, 0.2);
+        position: relative;
+        z-index: 1;
     }
 
     .login-footer p {
-        color: #666;
+        color: rgba(228, 230, 213, 0.95);
         font-size: 14px;
+    }
+
+    /* Alert styling */
+    .alert {
+        background-color: rgba(0,0,0,0.2);
+        border: none;
+        color: rgba(228, 230, 213, 0.95);
+        border-radius: 15px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .alert::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 15px;
+        padding: 1px;
+        background: linear-gradient(
+            90deg,
+            #68F2A0,
+            #4CAF50
+        );
+        -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+    }
+
+    .alert-danger::before {
+        background: linear-gradient(
+            90deg,
+            #FF5252,
+            #FF8A80
+        );
+    }
+
+    .btn-close {
+        filter: invert(1) brightness(200%);
     }
 </style>
 {% endblock %}

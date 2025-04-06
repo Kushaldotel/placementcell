@@ -10,21 +10,62 @@
         background-color: rgba(0,0,0,0.03);
     }
 
+    /* Contact Info Card */
     .contact-info {
         padding: 30px;
         background-color: rgba(0,0,0,0.03);
-        border-radius: 12px;
-        box-shadow: 0 3px 10px rgba(251, 237, 237, 0.92);
+        border-radius: 25px;
+        position: relative;
+        overflow: hidden;
         height: 100%;
+    }
+
+    /* Animated border effect */
+    .contact-info::before, .contact-form::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 25px;
+        padding: 2px;
+        background: linear-gradient(
+            90deg,
+            #68F2A0,
+            #4CAF50,
+            #2196F3,
+            #68F2A0
+        );
+        -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        animation: borderAnimation 4s linear infinite;
+        background-size: 300% 100%;
+    }
+
+    @keyframes borderAnimation {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
     }
 
     .contact-info h2 {
         font-size: 32px;
         margin-bottom: 25px;
-        color: white;
+        color: #fff;
         font-weight: 700;
         position: relative;
         padding-bottom: 15px;
+        z-index: 1;
     }
 
     .contact-info h2:after {
@@ -34,85 +75,118 @@
         left: 0;
         width: 60px;
         height: 3px;
-        background-color: #007bff;
+        background: linear-gradient(90deg, #68F2A0, #4CAF50);
     }
 
     .contact-info p {
-        color: white;
+        color: rgba(228, 230, 213, 0.95);
         line-height: 1.8;
         margin-bottom: 30px;
+        position: relative;
+        z-index: 1;
     }
 
-    .contact-details {
-        margin-top: 30px;
-    }
-
+    /* Contact Items */
     .contact-item {
         display: flex;
         margin-bottom: 25px;
+        position: relative;
+        z-index: 1;
     }
 
     .contact-item .icon {
         width: 50px;
         height: 50px;
-        background-color: rgba(0,0,0,0.03);
+        background-color: rgba(104, 242, 160, 0.1);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         margin-right: 20px;
-        color: #007bff;
+        color: #68F2A0;
         font-size: 20px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .contact-item .icon::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(104, 242, 160, 0.2), rgba(33, 150, 243, 0.2));
+        animation: iconGlow 2s linear infinite;
+    }
+
+    @keyframes iconGlow {
+        0% { opacity: 0.5; }
+        50% { opacity: 1; }
+        100% { opacity: 0.5; }
     }
 
     .contact-item .text h5 {
         font-size: 18px;
         margin-bottom: 5px;
-        color: white;
+        color: #68F2A0;
     }
 
     .contact-item .text p {
         margin-bottom: 0;
-        color: white;
+        color: rgba(228, 230, 213, 0.95);
     }
 
+    /* Contact Form */
     .contact-form {
         padding: 30px;
         background-color: rgba(0,0,0,0.03);
-        border-radius: 12px;
-        box-shadow: 0 3px 10px rgba(230, 229, 229, 0.89);
+        border-radius: 25px;
+        position: relative;
+        overflow: hidden;
     }
 
     .contact-form h3 {
         font-size: 24px;
         margin-bottom: 25px;
-        color: white;
+        color: #fff;
         font-weight: 600;
+        position: relative;
+        z-index: 1;
     }
 
     .form-group {
         margin-bottom: 20px;
+        position: relative;
+        z-index: 1;
     }
 
     .form-group label {
         display: block;
         margin-bottom: 8px;
-        color: white;
+        color: rgba(228, 230, 213, 0.95);
         font-weight: 500;
     }
 
     .form-control {
         padding: 12px 15px;
-        border-radius: 6px;
-        border: 1px solid rgba(211, 209, 209, 0.85);
-        background-color: rgba(254, 241, 241, 0.55);
+        border-radius: 15px;
+        border: 1px solid rgba(104, 242, 160, 0.2);
+        background-color: rgba(0,0,0,0.2);
         width: 100%;
+        color: #fff;
+        transition: all 0.3s ease;
     }
 
     .form-control:focus {
         outline: none;
-        border-color: #007bff;
-        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        border-color: #68F2A0;
+        box-shadow: 0 0 15px rgba(104, 242, 160, 0.2);
+        background-color: rgba(0,0,0,0.3);
+    }
+
+    .form-control::placeholder {
+        color: rgba(228, 230, 213, 0.5);
     }
 
     textarea.form-control {
@@ -120,49 +194,111 @@
         resize: vertical;
     }
 
+    /* Submit Button */
     .btn-primary {
         padding: 12px 30px;
-        background-color: #007bff;
+        background: linear-gradient(45deg, #68F2A0, #4CAF50);
         border: none;
-        border-radius: 6px;
-        color: white;
+        border-radius: 30px;
+        color: #fff;
         font-weight: 500;
         cursor: pointer;
         transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-primary::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent
+        );
+        transition: 0.5s;
+    }
+
+    .btn-primary:hover::before {
+        left: 100%;
     }
 
     .btn-primary:hover {
-        background-color: #0056b3;
-        transform: translateY(-2px);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(104, 242, 160, 0.3);
     }
 
+    /* Map Section */
     .map-section {
         padding: 80px 0;
         background-color: rgba(0,0,0,0.03);
     }
 
     .map-container {
-        border-radius: 12px;
+        border-radius: 25px;
         overflow: hidden;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+        position: relative;
+        box-shadow: 0 5px 15px rgba(104, 242, 160, 0.2);
     }
 
+    .map-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 25px;
+        padding: 2px;
+        background: linear-gradient(
+            90deg,
+            #68F2A0,
+            #4CAF50,
+            #2196F3,
+            #68F2A0
+        );
+        -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+    }
+
+    /* Alert Styling */
     .alert {
-        padding: 15px;
-        margin-bottom: 20px;
-        border-radius: 6px;
+        background-color: rgba(0,0,0,0.2);
+        border: none;
+        color: rgba(228, 230, 213, 0.95);
+        border-radius: 15px;
+        position: relative;
+        overflow: hidden;
     }
 
-    .alert-success {
-        background-color: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
+    .alert-success::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 15px;
+        padding: 1px;
+        background: linear-gradient(90deg, #68F2A0, #4CAF50);
+        -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
     }
 
-    .alert-danger {
-        background-color: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
+    .alert-danger::before {
+        background: linear-gradient(90deg, #FF5252, #FF8A80);
     }
 </style>
 {% endblock %}
