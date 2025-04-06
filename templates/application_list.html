@@ -1,0 +1,49 @@
+{% extends 'boiler_plate.html' %}
+{% load static %}
+
+{% block title %}{{ status }} Applications - Placement Cell{% endblock %}
+
+{% block content %}
+<div class="career pt-100 pb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-4">
+                <h2>{{ status }} Applications</h2>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="career__wrapper">
+                    <div class="career__wrapper--single">
+                        {% if applications %}
+                            {% for application in applications %}
+                            <!-- single job -->
+                            <div class="single-job">
+                                <h6>{{ application.job_vacancy.get_job_type_display }}</h6>
+                                <h3 class="magic-hover">{{ application.job_vacancy.title }}</h3>
+                                <p>{{ application.job_vacancy.description|striptags|truncatechars:200 }}</p>
+                                <div class="job-meta mb-3">
+                                    {% if application.job_vacancy.location %}
+                                    <span><i class="fa-solid fa-location-dot"></i> {{ application.job_vacancy.location }}</span>
+                                    {% endif %}
+                                    {% if application.job_vacancy.salary %}
+                                    <span><i class="fa-solid fa-indian-rupee-sign"></i> {{ application.job_vacancy.salary }}</span>
+                                    {% endif %}
+                                    <span><i class="fa-solid fa-calendar"></i> Applied: {{ application.applied_on|date:"M d, Y" }}</span>
+                                </div>
+                                <div class="single-job__btn">
+                                    <a href="{% url 'job-detail-view' application.job_vacancy.id %}" class="btn apply-btn">View Details</a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="alert alert-info">
+                                No {{ status|lower }} applications found.
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

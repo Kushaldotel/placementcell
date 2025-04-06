@@ -3,6 +3,118 @@
 
 {% block title %}Login - Placement Cell{% endblock %}
 
+{% block extra_css %}
+<style>
+    .login-section {
+        padding: 100px 0;
+        background-color: rgba(0,0,0,0.03);
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .login-card {
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        padding: 40px;
+        transition: all 0.3s ease;
+    }
+
+    .login-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .login-header {
+        margin-bottom: 30px;
+    }
+
+    .login-logo {
+        max-width: 120px;
+        margin-bottom: 20px;
+    }
+
+    .login-header h2 {
+        font-size: 28px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .login-header p {
+        color: #666;
+        font-size: 16px;
+    }
+
+    .login-form .form-group {
+        margin-bottom: 25px;
+    }
+
+    .login-form label {
+        font-weight: 500;
+        color: #555;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .login-form .input-group {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .login-form .input-group-text {
+        background-color: rgba(0,0,0,0.03);
+        border: 1px solid rgba(0,0,0,0.1);
+        color: #007bff;
+    }
+
+    .login-form .form-control {
+        border: 1px solid rgba(0,0,0,0.1);
+        padding: 12px 15px;
+        height: auto;
+    }
+
+    .login-form .form-control:focus {
+        box-shadow: none;
+        border-color: #007bff;
+    }
+
+    .forgot-password {
+        float: right;
+        color: #007bff;
+        font-size: 14px;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    .forgot-password:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+
+    .btn-block {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: 500;
+        margin-top: 15px;
+    }
+
+    .login-footer {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .login-footer p {
+        color: #666;
+        font-size: 14px;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <section class="login-section">
 	<div class="container">
@@ -32,7 +144,7 @@
 							<label for="email">Email</label>
 							<div class="input-group">
 								<span class="input-group-text"><i class="fa-solid fa-user"></i></span>
-								<input type="text" class="form-control" id="email" name="email" placeholder="Enter your username" required>
+								<input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" required>
 							</div>
 						</div>
 
@@ -42,24 +154,13 @@
 								<span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
 								<input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
 							</div>
-						</div>
-
-						<div class="form-check">
-							<input type="checkbox" class="form-check-input" id="rememberMe" name="remember_me">
-							<label class="form-check-label" for="rememberMe">Remember me</label>
-							<a href="#" class="forgot-password">Forgot Password?</a>
+							<div class="mt-2 text-end">
+								<a href="{% url 'contact' %}" class="forgot-password">Forgot Password?</a>
+							</div>
 						</div>
 
 						<button type="submit" class="btn btn-primary btn-block">Sign In</button>
 					</form>
-
-					<div class="social-login">
-						<p class="text-center">Or sign in with</p>
-						<div class="social-buttons">
-							<a href="#" class="btn btn-outline-secondary"><i class="fa-brands fa-google"></i> Google</a>
-							<a href="#" class="btn btn-outline-secondary"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
-						</div>
-					</div>
 
 					<div class="login-footer text-center">
 						<p>For student registration, please contact your department coordinator.</p>

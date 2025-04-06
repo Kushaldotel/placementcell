@@ -179,15 +179,15 @@
 </section>
 
 <section class="contact-section">
-	<div class="container">
+		<div class="container">
 		{% if messages %}
 		<div class="row mb-4">
 			<div class="col-12">
-				{% for message in messages %}
+				{% comment %} {% for message in messages %}
 				<div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %}">
 					{{ message }}
 				</div>
-				{% endfor %}
+				{% endfor %} {% endcomment %}
 			</div>
 		</div>
 		{% endif %}
@@ -202,12 +202,12 @@
 						<div class="contact-item">
 							<div class="icon">
 								<i class="fa-solid fa-location-dot"></i>
-							</div>
+				</div>
 							<div class="text">
 								<h5>Our Location</h5>
 								<p>University Campus, Main Building<br>Kathmandu, Nepal - 44600</p>
-							</div>
-						</div>
+		</div>
+	</div>
 
 						<div class="contact-item">
 							<div class="icon">
@@ -247,13 +247,13 @@
 					<h3>Send us a Message</h3>
 					<form id="contactForm" method="post" action="{% url 'contact' %}">
 						{% csrf_token %}
-						<div class="row">
+			<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="name">Your Name</label>
 									<input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
 								</div>
-							</div>
+									</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="email">Email Address</label>
@@ -270,7 +270,7 @@
 						<div class="form-group">
 							<label for="message">Message</label>
 							<textarea class="form-control" id="message" name="message" rows="5" placeholder="Enter your message" required></textarea>
-						</div>
+					</div>
 
 						<button type="submit" class="btn btn-primary">Send Message</button>
 					</form>
@@ -281,8 +281,8 @@
 </section>
 
 <section class="map-section">
-	<div class="container">
-		<div class="row">
+		<div class="container">
+			<div class="row">
 			<div class="col-12">
 				<div class="map-container">
 					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.2585013892!2d85.34091307619!3d27.709863126191!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb199a06c2eaf9%3A0xc5670a9173e161de!2sLBEF%20Campus!5e0!3m2!1sen!2snp!4v1685123456789!5m2!1sen!2snp" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>

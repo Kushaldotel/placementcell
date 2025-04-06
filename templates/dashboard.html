@@ -1,0 +1,355 @@
+{% extends 'boiler_plate.html' %}
+{% load static %}
+
+{% block title %}Dashboard - Placement Cell{% endblock %}
+
+{% block extra_css %}
+<style>
+    body {
+        background-color: #0f1123;
+        color: #fff;
+    }
+
+    .dashboard-section {
+        padding: 50px 0;
+        background-color: #0f1123;
+        min-height: 85vh;
+    }
+
+    .dashboard-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 40px;
+        text-align: left;
+    }
+
+    .stats-card {
+        background: #fff;
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        text-align: center;
+        min-height: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .stats-number {
+        font-size: 3.8rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .stats-card:nth-child(1) .stats-number {
+        color: #2196F3;
+    }
+
+    .pending-apps .stats-number {
+        color: #2196F3;
+    }
+
+    .accepted-apps .stats-number {
+        color: #4CAF50;
+    }
+
+    .rejected-apps .stats-number {
+        color: #FF5252;
+    }
+
+    .stats-label {
+        color: #555;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .view-btn {
+        padding: 12px 25px;
+        border-radius: 30px;
+        font-weight: 600;
+        border: none;
+        width: 100%;
+        transition: all 0.3s ease;
+        color: #fff;
+    }
+
+    .btn-primary {
+        background-color: #2196F3;
+    }
+
+    .btn-primary:hover {
+        background-color: #1976D2;
+        box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
+    }
+
+    .btn-success {
+        background-color: #4CAF50;
+    }
+
+    .btn-success:hover {
+        background-color: #388E3C;
+        box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+    }
+
+    .btn-danger {
+        background-color: #FF5252;
+    }
+
+    .btn-danger:hover {
+        background-color: #D32F2F;
+        box-shadow: 0 5px 15px rgba(255, 82, 82, 0.4);
+    }
+
+    .chart-container {
+        background: #fff;
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .chart-title {
+        color: #333;
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .chart-row {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+    }
+
+    .chart-col {
+        flex: 0 0 48%;
+        margin: 0 1%;
+    }
+
+    .chart-wrapper {
+        position: relative;
+        height: 350px;
+        margin: 0 auto;
+    }
+
+    @media (max-width: 992px) {
+        .chart-row {
+            flex-direction: column;
+        }
+
+        .chart-col {
+            flex: 0 0 100%;
+            margin: 15px 0;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .stats-number {
+            font-size: 2.8rem;
+        }
+
+        .stats-label {
+            font-size: 1rem;
+        }
+
+        .dashboard-title {
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .chart-wrapper {
+            height: 300px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="dashboard-section">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h1 class="dashboard-title">My Applications Dashboard</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Total Applications -->
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="stats-card">
+                    <div class="stats-number">{{ total_applications }}</div>
+                    <div class="stats-label">Total Applications</div>
+                </div>
+            </div>
+
+            <!-- Pending Applications -->
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="stats-card pending-apps">
+                    <div class="stats-number">{{ pending_count }}</div>
+                    <div class="stats-label">Pending Applications</div>
+                    <a href="{% url 'application_list' 'PENDING' %}" class="btn btn-primary view-btn">View Pending Applications</a>
+                </div>
+            </div>
+
+            <!-- Accepted Applications -->
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="stats-card accepted-apps">
+                    <div class="stats-number">{{ accepted_count }}</div>
+                    <div class="stats-label">Accepted Applications</div>
+                    <a href="{% url 'application_list' 'ACCEPTED' %}" class="btn btn-success view-btn">View Accepted Applications</a>
+                </div>
+            </div>
+
+            <!-- Rejected Applications -->
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="stats-card rejected-apps">
+                    <div class="stats-number">{{ rejected_count }}</div>
+                    <div class="stats-label">Rejected Applications</div>
+                    <a href="{% url 'application_list' 'REJECTED' %}" class="btn btn-danger view-btn">View Rejected Applications</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="chart-row">
+            <!-- Job Type Pie Chart -->
+            <div class="chart-col">
+                <div class="chart-container">
+                    <h2 class="chart-title">Applications by Job Type</h2>
+                    <div class="chart-wrapper">
+                        <canvas id="applicationsPieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Application Timeline Chart -->
+            <div class="chart-col">
+                <div class="chart-container">
+                    <h2 class="chart-title">Applications by Month</h2>
+                    <div class="chart-wrapper">
+                        <canvas id="timelineChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Job Type Pie Chart
+        const pieCtx = document.getElementById('applicationsPieChart').getContext('2d');
+        new Chart(pieCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Full Time', 'Part Time', 'Internship'],
+                datasets: [{
+                    data: {{ job_type_data|safe }},
+                    backgroundColor: [
+                        '#2196F3',
+                        '#4CAF50',
+                        '#FFC107'
+                    ],
+                    borderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            },
+                            padding: 15
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0,0,0,0.8)',
+                        padding: 12,
+                        titleFont: {
+                            size: 16,
+                            weight: 'bold'
+                        },
+                        bodyFont: {
+                            size: 14
+                        },
+                        bodySpacing: 8
+                    }
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true,
+                    duration: 1500
+                }
+            }
+        });
+
+        // Application Timeline Chart
+        const timelineCtx = document.getElementById('timelineChart').getContext('2d');
+        new Chart(timelineCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Less than 1 Month', '1-3 Months', 'Over 3 Months'],
+                datasets: [{
+                    data: {{ application_timeline_data|safe }},
+                    backgroundColor: [
+                        '#9C27B0',
+                        '#3F51B5',
+                        '#00BCD4'
+                    ],
+                    borderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            },
+                            padding: 15
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0,0,0,0.8)',
+                        padding: 12,
+                        titleFont: {
+                            size: 16,
+                            weight: 'bold'
+                        },
+                        bodyFont: {
+                            size: 14
+                        },
+                        bodySpacing: 8
+                    }
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true,
+                    duration: 1500
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

@@ -72,6 +72,9 @@
                             <li><a href="{% url 'career' %}">Career</a></li>
                             <li><a href="{% url 'contact' %}">Contact</a></li>
                             <li><a href="{% url 'atsreport' %}">ATS Report</a></li>
+                            {% if user.is_authenticated %}
+                            <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                            {% endif %}
                         </ul>
                     </div>
                     <div class="offcanvase__button mb-30">
@@ -118,6 +121,9 @@
                                     <li><a href="{% url 'career' %}">Career</a></li>
                                     <li><a href="{% url 'contact' %}">Contact</a></li>
                                     <li><a href="{% url 'atsreport' %}">ATS Report</a></li>
+                                    {% if user.is_authenticated %}
+                                    <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                                    {% endif %}
                                 </ul>
                             </nav>
                         </div>
@@ -205,8 +211,8 @@
 						<h5>Resources</h5>
 						<div class="footer__widget--resource">
 							<ul>
-								<li><a href="{% url "about" %}">Python Programming</a></li>
-								<li><a href="{% url "career" %}">Resume Writing</a></li>
+								<li><a href="https://docs.python.org/3.14/whatsnew/3.14.html" target="_blank">Python Programming</a></li>
+								<li><a href="https://www.jobbank.gc.ca/findajob/resources/write-good-resume" target="_blank">Resume Writing</a></li>
 							</ul>
 						</div>
 					</div>
@@ -215,9 +221,7 @@
 					<div class="footer__widget">
 						<h5>Newsletter</h5>
 						<div class="footer__widget--newsletter">
-							<p>If your business hosts events or exhibitions,
-								creative services can assist with event
-								planning, booth design.
+							<p>Subscribe to our newsletter to get latest news update directly into your email.
 							</p>
 							<form action="#" class="newsletter-box">
 								<input type="email" placeholder="Email Address">

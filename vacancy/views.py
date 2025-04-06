@@ -23,6 +23,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.core.mail import send_mail
 from django.conf import settings
+from django.db.models import Count
+import json
 
 class JobVacancyListAPIView(ListAPIView):
     """
@@ -255,3 +257,79 @@ def job_detail_view(request, id):
     except JobVacancy.DoesNotExist:
         messages.error(request, "Job vacancy not found or no longer available.")
         return redirect('career')
+
+@login_required
+def dashboard_view(request):
+    """View for the user's dashboard"""
+    # Get user's applications
+    user_applications = Application.objects.filter(student=request.user)
+
+    # Get counts
+    total_applications = user_applications.count()
+    pending_count = user_applications.filter(status='PENDING').count()
+    accepted_count = user_applications.filter(status='ACCEPTED').count()
+    rejected_count = user_applications.filter(status='REJECTED').count()
+
+    # Get job type distribution
+    job_type_distribution = user_applications.values(
+        'job_vacancy__job_type'
+    ).annotate(
+        count=Count('id')
+    )
+
+    # Prepare data for job type pie chart
+    job_type_data = [0, 0, 0]  # [FULL_TIME, PART_TIME, INTERNSHIP]
+    for item in job_type_distribution:
+        if item['job_vacancy__job_type'] == 'FULL_TIME':
+            job_type_data[0] = item['count']
+        elif item['job_vacancy__job_type'] == 'PART_TIME':
+            job_type_data[1] = item['count']
+        elif item['job_vacancy__job_type'] == 'INTERNSHIP':
+            job_type_data[2] = item['count']
+
+    # Prepare data for application timeline (by month)
+    from django.utils import timezone
+    from datetime import timedelta
+
+    now = timezone.now()
+    one_month_ago = now - timedelta(days=30)
+    three_months_ago = now - timedelta(days=90)
+
+    # Count applications by time period
+    recent_apps = user_applications.filter(applied_on__gte=one_month_ago).count()
+    mid_term_apps = user_applications.filter(applied_on__lt=one_month_ago, applied_on__gte=three_months_ago).count()
+    older_apps = user_applications.filter(applied_on__lt=three_months_ago).count()
+
+    application_timeline_data = [recent_apps, mid_term_apps, older_apps]
+
+    context = {
+        'total_applications': total_applications,
+        'pending_count': pending_count,
+        'accepted_count': accepted_count,
+        'rejected_count': rejected_count,
+        'job_type_data': json.dumps(job_type_data),
+        'application_timeline_data': json.dumps(application_timeline_data)
+    }
+
+    return render(request, 'dashboard.html', context)
+
+@login_required
+def application_list_view(request, status):
+    """View for displaying applications by status"""
+    # Validate status
+    if status not in ['PENDING', 'ACCEPTED', 'REJECTED']:
+        messages.error(request, "Invalid application status.")
+        return redirect('dashboard')
+
+    # Get applications
+    applications = Application.objects.filter(
+        student=request.user,
+        status=status
+    ).select_related('job_vacancy').order_by('-applied_on')
+
+    context = {
+        'applications': applications,
+        'status': status
+    }
+
+    return render(request, 'application_list.html', context)

@@ -10,7 +10,9 @@ from .views import (
     atsreport_view,
     login_view,
     logout_view,
-    job_detail_view
+    job_detail_view,
+    dashboard_view,
+    application_list_view
 )
 
 urlpatterns = [
@@ -28,4 +30,6 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
     path('job/<int:id>/', job_detail_view, name='job-detail-view'),
+    path('dashboard/', dashboard_view, name='dashboard'),
+    path('applications/<str:status>/', application_list_view, name='application_list'),
 ]

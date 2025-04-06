@@ -221,7 +221,7 @@ CKEDITOR_5_CONFIGS = {
 }
 
 # Authentication settings
-LOGIN_URL = '/login/'
+LOGIN_URL = '/api/v1/vacancy/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
 
@@ -236,13 +236,6 @@ AUTHENTICATION_BACKENDS = [
     'authuser.backends.EmailBackend',  # Custom backend for email authentication
 ]
 
-# Remove JWT settings if they exist
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': [
-#         'rest_framework_simplejwt.authentication.JWTAuthentication',
-#     ],
-# }
-
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
 # GOOGLE_REDIRECT_URI = "http://127.0.0.1:8000/admin"
@@ -250,6 +243,8 @@ GOOGLE_REDIRECT_URI = "http://127.0.0.1:8000/api/auth/google/callback"
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
