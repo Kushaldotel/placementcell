@@ -18,6 +18,7 @@ class UserLoginSerializer(serializers.Serializer):
             # Generate JWT tokens
             refresh = RefreshToken.for_user(user)
             return {
+                'user': user,  # Include the user object
                 'email': user.email,
                 'name': user.name,
                 'user_type': user.user_type,

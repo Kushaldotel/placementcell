@@ -9,13 +9,23 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
-
+from vacancy.permissions import IsStudentUser
 User = get_user_model()
 
 class UserLoginAPIView(APIView):
     def post(self, request):
         serializer = UserLoginSerializer(data=request.data)
         if serializer.is_valid():
+            # Get the user from the serializer
+            user = serializer.validated_data.get('user')
+
+            # Check if the user is of type 'STUDENT'
+            if user.user_type != 'STUDENT':
+                return Response(
+                    {"error": "Access denied. Only students can log in to this application."},
+                    status=status.HTTP_403_FORBIDDEN
+                )
+
             return Response(serializer.validated_data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -109,8 +119,23 @@ class GoogleAuthAPIView(APIView):
             email = id_info.get("email")
             name = id_info.get("name")
 
-            # Check if the user exists or create a new user
-            user, created = User.objects.get_or_create(email=email, defaults={"name": name, "user_type": "STUDENT"})
+            # Check if the user exists
+            user = User.objects.filter(email=email).first()
+
+            if user:
+                # If user exists, check if they are a student
+                if user.user_type != 'STUDENT':
+                    return Response(
+                        {"error": "Access denied. Only students can log in to this application."},
+                        status=status.HTTP_403_FORBIDDEN
+                    )
+            else:
+                # Create a new user with STUDENT type
+                user = User.objects.create(
+                    email=email,
+                    name=name,
+                    user_type="STUDENT"
+                )
 
             # Generate JWT tokens for the user
             refresh = RefreshToken.for_user(user)
@@ -118,7 +143,7 @@ class GoogleAuthAPIView(APIView):
             return Response({
                 "access": str(refresh.access_token),
                 "refresh": str(refresh),
-                "user": {"email": user.email, "name": user.name},
+                "user": {"email": user.email, "name": user.name, "user_type": user.user_type},
             })
         except GoogleAuthError as e:
             return Response({"error": f"Invalid token: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
@@ -162,5 +187,12 @@ def google_auth_callback(request):
     headers = {"Authorization": f"Bearer {token_data['access_token']}"}
     user_info_response = requests.get(user_info_url, headers=headers)
     user_info = user_info_response.json()
+
+    # Check if user exists in our database
+    email = user_info.get("email")
+    if email:
+        user = User.objects.filter(email=email).first()
+        if user and user.user_type != 'STUDENT':
+            return JsonResponse({"error": "Access denied. Only students can log in to this application."}, status=403)
 
     return JsonResponse({"message": "Google Login Successful", "user_info": user_info})

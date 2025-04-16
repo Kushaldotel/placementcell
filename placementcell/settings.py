@@ -223,7 +223,7 @@ CKEDITOR_5_CONFIGS = {
 # Authentication settings
 LOGIN_URL = '/api/v1/vacancy/login/'
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/login/'
+LOGOUT_REDIRECT_URL = '/admin/'
 
 # Session settings
 SESSION_COOKIE_AGE = 1209600  # 2 weeks in seconds

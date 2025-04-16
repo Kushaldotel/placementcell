@@ -209,6 +209,11 @@ def login_view(request):
         user = authenticate(request, email=email, password=password)
 
         if user is not None:
+            # Check if the user is of type 'STUDENT'
+            if user.user_type != 'STUDENT':
+                messages.error(request, "Access denied. Only students can log in to this application.")
+                return render(request, 'login.html')
+
             login(request, user)
 
             # Set session expiry based on remember me checkbox
