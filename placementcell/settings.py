@@ -250,4 +250,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # Replace with your email
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # Replace with your app password
-DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')  # Replace with your email
+DEFAULT_FROM_EMAIL = os.getenv('EMAIL_HOST_USER')  # Default from email
+
+# Site URL for email links
+SITE_URL = 'http://localhost:8000'  # Change this in production

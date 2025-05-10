@@ -110,17 +110,26 @@ def about_view(request):
     """View for the about page"""
     return render(request, 'about.html')
 
+import re
+from django.core.paginator import Paginator
+
+def extract_numeric_salary(salary):
+    """Extract integer value from salary string, fallback to 0 if invalid"""
+    try:
+        return int(re.sub(r"[^\d]", "", salary or "0"))
+    except ValueError:
+        return 0
+
 def career_view(request):
     """View for the career page with job listings"""
-    # Get search parameters
     search_query = request.GET.get('search', '')
     job_type = request.GET.get('job_type', '')
     location = request.GET.get('location', '')
+    min_salary = request.GET.get('min_salary', '')
+    max_salary = request.GET.get('max_salary', '')
 
-    # Start with all open jobs
     jobs = JobVacancy.objects.filter(is_open=True).order_by('-posted_on')
 
-    # Apply filters if provided
     if search_query:
         jobs = jobs.filter(title__icontains=search_query)
 
@@ -130,26 +139,56 @@ def career_view(request):
     if location:
         jobs = jobs.filter(location__icontains=location)
 
-    # Pagination
-    paginator = Paginator(jobs, 10)  # Show 10 jobs per page
+    # Convert min and max salary to integers safely
+    try:
+        min_salary = int(min_salary)
+    except (ValueError, TypeError):
+        min_salary = 0
 
+    try:
+        max_salary = int(max_salary)
+    except (ValueError, TypeError):
+        max_salary = None
+
+    # Filter salary in Python
+    filtered_jobs = []
+    for job in jobs:
+        salary_value = extract_numeric_salary(job.salary)
+        if (
+            (min_salary is None or salary_value >= min_salary) and
+            (max_salary is None or salary_value <= max_salary)
+        ):
+            filtered_jobs.append(job)
+
+    # Pagination
+    paginator = Paginator(filtered_jobs, 5)  # Show 5 jobs per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    # Get unique locations for filter dropdown
     locations = JobVacancy.objects.filter(is_open=True).values_list('location', flat=True).distinct().order_by('location')
 
-    # import pdb; pdb.set_trace()
+    salary_ranges = [
+        ('0-20000', '₹0 - ₹20,000'),
+        ('20000-50000', '₹20,000 - ₹50,000'),
+        ('50000-100000', '₹50,000 - ₹1,00,000'),
+        ('100000-200000', '₹1,00,000 - ₹2,00,000'),
+        ('200000+', '₹2,00,000+')
+    ]
+
     context = {
         'page_obj': page_obj,
         'search_query': search_query,
         'job_type': job_type,
         'location': location,
+        'min_salary': min_salary,
+        'max_salary': max_salary,
         'locations': locations,
         'job_types': JobVacancy.JOB_TYPE_CHOICES,
+        'salary_ranges': salary_ranges,
     }
 
     return render(request, 'career.html', context)
+
 
 def contact_view(request):
     """View for the contact page and form handling"""

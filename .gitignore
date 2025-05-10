@@ -102,9 +102,15 @@ celerybeat-schedule.*
 .venv
 env/
 venv/
+designs/
 ENV/
 env.bak/
 venv.bak/
+chapter4.txt
+chapter5.txt
+chapter6.txt
+poster.txt
+references.txt
 
 # mkdocs documentation
 /site

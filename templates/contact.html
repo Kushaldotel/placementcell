@@ -182,7 +182,7 @@
         outline: none;
         border-color: #68F2A0;
         box-shadow: 0 0 15px rgba(104, 242, 160, 0.2);
-        background-color: rgba(0,0,0,0.3);
+        background-color: rgba(255, 255, 255, 0.76);
     }
 
     .form-control::placeholder {
@@ -316,17 +316,17 @@
 
 <section class="contact-section">
 		<div class="container">
-		{% if messages %}
-		<div class="row mb-4">
-			<div class="col-12">
+		{% comment %} {% if messages %} {% endcomment %}
+		{% comment %} <div class="row mb-4">
+			<div class="col-12"> {% endcomment %}
 				{% comment %} {% for message in messages %}
 				<div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %}">
 					{{ message }}
 				</div>
 				{% endfor %} {% endcomment %}
-			</div>
+			{% comment %} </div>
 		</div>
-		{% endif %}
+		{% endif %} {% endcomment %}
 
 		<div class="row">
 			<div class="col-lg-6 mb-4 mb-lg-0">

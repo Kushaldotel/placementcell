@@ -10,6 +10,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from vacancy.permissions import IsStudentUser
+from django.contrib.auth.decorators import user_passes_test
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from django.contrib.auth.hashers import make_password
+
 User = get_user_model()
 
 class UserLoginAPIView(APIView):
@@ -196,3 +201,31 @@ def google_auth_callback(request):
             return JsonResponse({"error": "Access denied. Only students can log in to this application."}, status=403)
 
     return JsonResponse({"message": "Google Login Successful", "user_info": user_info})
+
+def is_admin(user):
+    return user.is_staff or user.is_superuser
+
+# @user_passes_test(is_admin)
+def change_user_password(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+
+    if request.method == 'POST':
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+
+        if not new_password or not confirm_password:
+            messages.error(request, 'Please fill in all password fields.')
+            return render(request, 'admin/change_password.html', {'target_user': user})
+
+        if new_password != confirm_password:
+            messages.error(request, 'Passwords do not match.')
+            return render(request, 'admin/change_password.html', {'target_user': user})
+
+        # Update the user's password
+        user.password = make_password(new_password)
+        user.save()
+
+        messages.success(request, f'Password for {user.email} has been updated successfully.')
+        return redirect('admin:authuser_user_changelist')
+
+    return render(request, 'admin/change_password.html', {'target_user': user})

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Confirmation</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(45deg, #68F2A0, #4CAF50);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 0 0 5px 5px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #777;
+        }
+        .button {
+            display: inline-block;
+            background: linear-gradient(45deg, #68F2A0, #4CAF50);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .job-details {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #68F2A0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Application Submitted Successfully!</h1>
+        </div>
+        <div class="content">
+            <p>Dear {{ student_name }},</p>
+
+            <p>Thank you for applying to <strong>{{ job_title }}</strong> at <strong>{{ company_name }}</strong>. Your application has been successfully submitted and is now under review.</p>
+
+            <div class="job-details">
+                <h3>Job Details:</h3>
+                <p><strong>Position:</strong> {{ job_title }}</p>
+                <p><strong>Company:</strong> {{ company_name }}</p>
+                <p><strong>Job Type:</strong> {{ job_type }}</p>
+                <p><strong>Location:</strong> {{ job_location }}</p>
+                <p><strong>Application Date:</strong> {{ application_date }}</p>
+            </div>
+
+            <p>The hiring team will review your application and may contact you for further steps in the selection process.</p>
+
+            <p>You can track the status of your application by logging into your account on our platform.</p>
+
+            <div style="text-align: center;">
+                <a href="{{ dashboard_url }}" class="button">View My Applications</a>
+            </div>
+
+            <p>If you have any questions, please don't hesitate to contact us.</p>
+
+            <p>Best regards,<br>The Placement Cell Team</p>
+        </div>
+        <div class="footer">
+            <p>This is an automated message. Please do not reply to this email.</p>
+            <p>&copy; {{ current_year }} University Placement Cell. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

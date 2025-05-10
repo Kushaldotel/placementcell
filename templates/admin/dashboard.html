@@ -1,0 +1,18 @@
+{% extends 'base_site.html' %}
+{% load static %}
+
+{% block content %}
+<div class="admin-dashboard">
+    <h1>Admin Dashboard</h1>
+
+    <div class="admin-actions">
+        <h2>Quick Actions</h2>
+        <div class="action-buttons">
+            <a href="{% url 'change_user_password' user.id %}" class="btn btn-primary">Change Password</a>
+            <!-- Add more admin actions here -->
+        </div>
+    </div>
+
+    <!-- Rest of the dashboard content -->
+</div>
+{% endblock %}

@@ -44,7 +44,7 @@
     .job-description h3 {
         margin-bottom: 20px;
         font-weight: 600;
-        color: #fff;
+        color: white;
     }
 
     .job-sidebar {
@@ -263,7 +263,7 @@
                 <!-- Job Description -->
                 <div class="job-description">
                     <h3>Job Description</h3>
-                    <div>
+                    <div style="color: white;">
                         {{ job.description|safe }}
                     </div>
                 </div>
@@ -389,7 +389,7 @@
             })
             .then(data => {
                 // Show success message
-                successMessage.textContent = 'Your application has been submitted successfully!';
+                successMessage.textContent = 'Your application has been submitted successfully! You will receive a confirmation email shortly.';
                 successMessage.classList.remove('d-none');
 
                 // Disable form fields

@@ -225,6 +225,87 @@
         border-color: #68F2A0;
         box-shadow: 0 0 15px rgba(104, 242, 160, 0.2);
     }
+
+    /* Salary range slider styling */
+    .salary-range-container {
+        margin-top: 10px;
+    }
+
+    .salary-range-labels {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        color: rgba(228, 230, 213, 0.95);
+        font-size: 14px;
+    }
+
+    .salary-range-select {
+        width: 100%;
+        background-color: rgba(0,0,0,0.2);
+        border: 1px solid rgba(104, 242, 160, 0.2);
+        color: rgba(228, 230, 213, 0.95);
+        border-radius: 15px;
+        padding: 8px;
+    }
+
+    /* Dual handle slider styling */
+    .slider-container {
+        margin: 20px 0;
+        padding: 0 10px;
+    }
+
+    .slider-track {
+        position: relative;
+        height: 5px;
+        background: rgba(104, 242, 160, 0.3);
+        border-radius: 5px;
+        margin: 20px 0;
+    }
+
+    .slider-range {
+        position: absolute;
+        height: 100%;
+        background: linear-gradient(90deg, #68F2A0, #4CAF50);
+        border-radius: 5px;
+        z-index: 1;
+    }
+
+    .slider-handle {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: #fff;
+        border: 2px solid #68F2A0;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 2;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: box-shadow 0.2s;
+    }
+
+    .slider-handle:hover {
+        box-shadow: 0 0 10px rgba(104, 242, 160, 0.5);
+    }
+
+    .slider-handle.active {
+        box-shadow: 0 0 15px rgba(104, 242, 160, 0.8);
+    }
+
+    .slider-values {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        color: rgba(228, 230, 213, 0.95);
+        font-size: 14px;
+    }
+
+    .slider-value {
+        background: rgba(0,0,0,0.2);
+        padding: 5px 10px;
+        border-radius: 15px;
+        border: 1px solid rgba(104, 242, 160, 0.2);
+    }
 </style>
 {% endblock %}
 {% block content %}
@@ -280,7 +361,7 @@
                         <ul class="pagination justify-content-center">
                             {% if page_obj.has_previous %}
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if job_type %}&job_type={{ job_type }}{% endif %}{% if location %}&location={{ location }}{% endif %}" aria-label="Previous">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if job_type %}&job_type={{ job_type }}{% endif %}{% if location %}&location={{ location }}{% endif %}{% if min_salary %}&min_salary={{ min_salary }}{% endif %}{% if max_salary %}&max_salary={{ max_salary }}{% endif %}" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
@@ -294,13 +375,13 @@
                                 {% if page_obj.number == i %}
                                 <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
                                 {% else %}
-                                <li class="page-item"><a class="page-link" href="?page={{ i }}{% if search_query %}&search={{ search_query }}{% endif %}{% if job_type %}&job_type={{ job_type }}{% endif %}{% if location %}&location={{ location }}{% endif %}">{{ i }}</a></li>
+                                <li class="page-item"><a class="page-link" href="?page={{ i }}{% if search_query %}&search={{ search_query }}{% endif %}{% if job_type %}&job_type={{ job_type }}{% endif %}{% if location %}&location={{ location }}{% endif %}{% if min_salary %}&min_salary={{ min_salary }}{% endif %}{% if max_salary %}&max_salary={{ max_salary }}{% endif %}">{{ i }}</a></li>
                                 {% endif %}
                             {% endfor %}
 
                             {% if page_obj.has_next %}
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if job_type %}&job_type={{ job_type }}{% endif %}{% if location %}&location={{ location }}{% endif %}" aria-label="Next">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if job_type %}&job_type={{ job_type }}{% endif %}{% if location %}&location={{ location }}{% endif %}{% if min_salary %}&min_salary={{ min_salary }}{% endif %}{% if max_salary %}&max_salary={{ max_salary }}{% endif %}" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
@@ -370,6 +451,24 @@
 							</select>
 						</div>
 
+                        <!-- Salary Range Slider -->
+                        <div class="mb-3" style="display: flex; flex-direction: column; gap: 5px;">
+                            <label class="form-label" style="color: rgba(228, 230, 213, 0.95);">Salary Range</label>
+                            <div class="slider-container">
+                                <div class="slider-track">
+                                    <div class="slider-range"></div>
+                                    <div class="slider-handle min-handle"></div>
+                                    <div class="slider-handle max-handle"></div>
+                                </div>
+                                <div class="slider-values">
+                                    <span class="slider-value min-value">₹0</span>
+                                    <span class="slider-value max-value">₹10,00,000</span>
+                                </div>
+                            </div>
+                            <input type="hidden" name="min_salary" id="min_salary" value="{{ min_salary|default:0 }}">
+                            <input type="hidden" name="max_salary" id="max_salary" value="{{ max_salary|default:1000000 }}">
+                        </div>
+
 						<button type="submit" class="apply-btn w-100" style="padding: 10px; border-radius: 5px;">Apply Filters</button>
 					</form>
 				</div>
@@ -423,4 +522,186 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Dual handle slider implementation
+        const sliderTrack = document.querySelector('.slider-track');
+        const sliderRange = document.querySelector('.slider-range');
+        const minHandle = document.querySelector('.min-handle');
+        const maxHandle = document.querySelector('.max-handle');
+        const minValue = document.querySelector('.min-value');
+        const maxValue = document.querySelector('.max-value');
+        const minSalaryInput = document.getElementById('min_salary');
+        const maxSalaryInput = document.getElementById('max_salary');
+
+        // Set initial values from URL parameters or defaults
+        const minSalary = parseInt(minSalaryInput.value) || 0;
+        const maxSalary = parseInt(maxSalaryInput.value) || 1000000;
+
+        // Update slider position based on values
+        function updateSliderPosition() {
+            const trackWidth = sliderTrack.offsetWidth;
+            const minPercent = (minSalary / 1000000) * 100;
+            const maxPercent = (maxSalary / 1000000) * 100;
+
+            minHandle.style.left = `${minPercent}%`;
+            maxHandle.style.left = `${maxPercent}%`;
+
+            sliderRange.style.left = `${minPercent}%`;
+            sliderRange.style.width = `${maxPercent - minPercent}%`;
+
+            minValue.textContent = `₹${formatNumber(minSalary)}`;
+            maxValue.textContent = `₹${formatNumber(maxSalary)}`;
+        }
+
+        // Format number with commas
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        // Initialize slider
+        updateSliderPosition();
+
+        // Handle slider movement
+        let activeHandle = null;
+
+        function handleMouseDown(e) {
+            activeHandle = e.target;
+            activeHandle.classList.add('active');
+
+            document.addEventListener('mousemove', handleMouseMove);
+            document.addEventListener('mouseup', handleMouseUp);
+        }
+
+        function handleMouseMove(e) {
+            if (!activeHandle) return;
+
+            const trackRect = sliderTrack.getBoundingClientRect();
+            const trackWidth = trackRect.width;
+
+            // Calculate position as percentage
+            let percent = ((e.clientX - trackRect.left) / trackWidth) * 100;
+
+            // Constrain to track bounds
+            percent = Math.max(0, Math.min(100, percent));
+
+            // Determine which handle is being moved
+            if (activeHandle === minHandle) {
+                // Ensure min doesn't exceed max
+                const maxPercent = parseFloat(maxHandle.style.left);
+                percent = Math.min(percent, maxPercent);
+
+                // Update min handle position
+                minHandle.style.left = `${percent}%`;
+                sliderRange.style.left = `${percent}%`;
+
+                // Update value
+                const value = Math.round((percent / 100) * 1000000);
+                minSalaryInput.value = value;
+                minValue.textContent = `₹${formatNumber(value)}`;
+            } else {
+                // Ensure max doesn't go below min
+                const minPercent = parseFloat(minHandle.style.left);
+                percent = Math.max(percent, minPercent);
+
+                // Update max handle position
+                maxHandle.style.left = `${percent}%`;
+                sliderRange.style.width = `${percent - parseFloat(minHandle.style.left)}%`;
+
+                // Update value
+                const value = Math.round((percent / 100) * 1000000);
+                maxSalaryInput.value = value;
+                maxValue.textContent = `₹${formatNumber(value)}`;
+            }
+        }
+
+        function handleMouseUp() {
+            if (activeHandle) {
+                activeHandle.classList.remove('active');
+                activeHandle = null;
+            }
+
+            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mouseup', handleMouseUp);
+        }
+
+        // Add event listeners
+        minHandle.addEventListener('mousedown', handleMouseDown);
+        maxHandle.addEventListener('mousedown', handleMouseDown);
+
+        // Touch events for mobile
+        minHandle.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            activeHandle = minHandle;
+            activeHandle.classList.add('active');
+
+            document.addEventListener('touchmove', handleTouchMove);
+            document.addEventListener('touchend', handleTouchEnd);
+        });
+
+        maxHandle.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            activeHandle = maxHandle;
+            activeHandle.classList.add('active');
+
+            document.addEventListener('touchmove', handleTouchMove);
+            document.addEventListener('touchend', handleTouchEnd);
+        });
+
+        function handleTouchMove(e) {
+            if (!activeHandle) return;
+
+            const trackRect = sliderTrack.getBoundingClientRect();
+            const trackWidth = trackRect.width;
+
+            // Calculate position as percentage
+            let percent = ((e.touches[0].clientX - trackRect.left) / trackWidth) * 100;
+
+            // Constrain to track bounds
+            percent = Math.max(0, Math.min(100, percent));
+
+            // Determine which handle is being moved
+            if (activeHandle === minHandle) {
+                // Ensure min doesn't exceed max
+                const maxPercent = parseFloat(maxHandle.style.left);
+                percent = Math.min(percent, maxPercent);
+
+                // Update min handle position
+                minHandle.style.left = `${percent}%`;
+                sliderRange.style.left = `${percent}%`;
+
+                // Update value
+                const value = Math.round((percent / 100) * 1000000);
+                minSalaryInput.value = value;
+                minValue.textContent = `₹${formatNumber(value)}`;
+            } else {
+                // Ensure max doesn't go below min
+                const minPercent = parseFloat(minHandle.style.left);
+                percent = Math.max(percent, minPercent);
+
+                // Update max handle position
+                maxHandle.style.left = `${percent}%`;
+                sliderRange.style.width = `${percent - parseFloat(minHandle.style.left)}%`;
+
+                // Update value
+                const value = Math.round((percent / 100) * 1000000);
+                maxSalaryInput.value = value;
+                maxValue.textContent = `₹${formatNumber(value)}`;
+            }
+        }
+
+        function handleTouchEnd() {
+            if (activeHandle) {
+                activeHandle.classList.remove('active');
+                activeHandle = null;
+            }
+
+            document.removeEventListener('touchmove', handleTouchMove);
+            document.removeEventListener('touchend', handleTouchEnd);
+        }
+    });
+</script>
 {% endblock %}

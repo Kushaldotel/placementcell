@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Job Application</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(45deg, #68F2A0, #4CAF50);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 0 0 5px 5px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #777;
+        }
+        .button {
+            display: inline-block;
+            background: linear-gradient(45deg, #68F2A0, #4CAF50);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .application-details {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #68F2A0;
+        }
+        .candidate-info {
+            background-color: #f0f8ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>New Job Application Received</h1>
+        </div>
+        <div class="content">
+            <p>Dear {{ organization_name }},</p>
+
+            <p>A new application has been submitted for the position of <strong>{{ job_title }}</strong> at your organization.</p>
+
+            <div class="application-details">
+                <h3>Job Details:</h3>
+                <p><strong>Position:</strong> {{ job_title }}</p>
+                <p><strong>Job Type:</strong> {{ job_type }}</p>
+                <p><strong>Location:</strong> {{ job_location }}</p>
+                <p><strong>Application Date:</strong> {{ application_date }}</p>
+            </div>
+
+            <div class="candidate-info">
+                <h3>Candidate Information:</h3>
+                <p><strong>Name:</strong> {{ student_name }}</p>
+                <p><strong>Email:</strong> {{ student_email }}</p>
+                <p><strong>Phone:</strong> {{ student_phone|default:"Not provided" }}</p>
+                <p><strong>Resume:</strong> <a href="{{ resume_url }}">View Resume</a></p>
+            </div>
+
+            <p>The candidate has submitted a cover letter with their application. You can view the complete application details by logging into your account.</p>
+
+            <div style="text-align: center;">
+                <a href="{{ application_url }}" class="button">View Application</a>
+            </div>
+
+            <p>Please review this application at your earliest convenience and update the application status accordingly.</p>
+
+            <p>Best regards,<br>The Placement Cell Team</p>
+        </div>
+        <div class="footer">
+            <p>This is an automated message. Please do not reply to this email.</p>
+            <p>&copy; {{ current_year }} University Placement Cell. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
